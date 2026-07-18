@@ -1,0 +1,18 @@
+{
+  "name": "pelita-anak-landing",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Landing page Pelita Anak siap deploy ke Vercel.",
+  "scripts": {
+    "dev": "vercel dev",
+    "start": "python3 -m http.server 3000",
+    "preview": "python3 -m http.server 3000"
+  },
+  "keywords": [
+    "pelita-anak",
+    "landing-page",
+    "vercel",
+    "static-site"
+  ],
+  "license": "UNLICENSED"
+}

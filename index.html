@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pelita Anak — Cegah Grooming, Lindungi Anak</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,500&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="./assets/css/styles.css">
+</head>
+<body>
+<a class="skip-link" href="#materi">Lewati ke konten utama</a>
+
+<!-- ================= HEADER ================= -->
+<header>
+  <div class="wrap nav-inner">
+    <div class="logo">
+      <svg class="logo-mark" viewBox="0 0 44 44" fill="none">
+        <path d="M22 3 L38 9 V21 C38 31 31 38.5 22 41 C13 38.5 6 31 6 21 V9 Z" fill="#0D2745" stroke="#C69A3E" stroke-width="1.6"/>
+        <path d="M22 8 L33 12.3 V21 C33 28.5 28 34 22 36.2 C16 34 11 28.5 11 21 V12.3 Z" fill="#1F4E8C"/>
+        <circle cx="22" cy="19" r="4.4" fill="#F5F8FB"/>
+        <path d="M14.5 29 C14.5 23.5 18 21 22 21 C26 21 29.5 23.5 29.5 29" stroke="#F5F8FB" stroke-width="2.3" stroke-linecap="round" fill="none"/>
+      </svg>
+      <div class="logo-text">Pelita Anak<span>Cegah Grooming, Lindungi Anak</span></div>
+    </div>
+    <nav class="main-nav">
+      <a href="#" class="active">Beranda</a>
+      <a href="#materi">Materi</a>
+      <a href="#artikel">Artikel</a>
+      <a href="#toko">Toko</a>
+      <a href="#tentang">Komunitas</a>
+    </nav>
+    <div class="nav-right">
+      <div class="search-box">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
+        Cari artikel…
+      </div>
+      <button class="icon-btn" id="cartIcon" type="button" aria-label="Keranjang">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+        <span class="cart-count" id="cartCount">0</span>
+      </button>
+      <a href="#" class="btn btn-primary" style="padding:10px 22px; font-size:13.5px;">Subscribe</a>
+    </div>
+  </div>
+</header>
+
+<!-- ================= TICKER ================= -->
+<div class="ticker-bar">
+  <div class="ticker-tag">TERKINI</div>
+  <div class="ticker-track">
+    <span>Kurikulum edukasi batas tubuh resmi masuk 12 sekolah mitra di Jabodetabek</span>
+    <span>Webinar gratis: Mengenali grooming online, Sabtu ini pukul 10.00</span>
+    <span>Modul guru baru: Panduan sesi kelompok kecil untuk kelas 1–3 SD</span>
+    <span>Kurikulum edukasi batas tubuh resmi masuk 12 sekolah mitra di Jabodetabek</span>
+    <span>Webinar gratis: Mengenali grooming online, Sabtu ini pukul 10.00</span>
+    <span>Modul guru baru: Panduan sesi kelompok kecil untuk kelas 1–3 SD</span>
+  </div>
+</div>
+
+<!-- ================= HERO (news carousel) ================= -->
+<section class="hero">
+  <div class="wrap">
+    <div class="hero-row">
+      <div class="hero-nav-btn" onclick="changeSlide(-1)">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M15 18l-6-6 6-6"/></svg>
+      </div>
+      <div class="hero-main">
+        <div class="hero-text">
+          <div class="hero-label">
+            <span class="bar"></span>
+            <b>Laporan Utama</b>
+            <span class="count" id="slideCount">01 / 03</span>
+          </div>
+          <h1 id="slideTitle">Mengenali Pola Grooming Digital: Tinjauan Literatur untuk Orang Tua</h1>
+          <p id="slideExcerpt">Rangkuman studi psikologi perkembangan tentang bagaimana pelaku membangun kepercayaan bertahap secara daring, dan tanda yang bisa dikenali sejak dini oleh keluarga.</p>
+          <div class="hero-byline">
+            <div class="avatar-sm" id="slideInitial">A</div>
+            <div class="meta"><b id="slideAuthor">Dr. Amelia Ratna, M.Psi</b> · <span id="slideDate">12 Jul 2026</span> · <span id="slideRead">9 menit baca</span></div>
+          </div>
+        </div>
+        <div class="hero-image t1" id="slideImage">
+          <div class="cat-tag" id="slideTag">Materi Akademik</div>
+          <div class="cap" id="slideCap">Mengenali Pola Grooming Digital</div>
+        </div>
+      </div>
+      <div class="hero-nav-btn" onclick="changeSlide(1)">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M9 18l6-6-6-6"/></svg>
+      </div>
+    </div>
+    <div class="hero-dots" id="heroDots">
+      <div class="dot active" onclick="goSlide(0)"></div>
+      <div class="dot" onclick="goSlide(1)"></div>
+      <div class="dot" onclick="goSlide(2)"></div>
+    </div>
+
+    <div class="cat-tabs">
+      <a href="#" class="active">Untuk Kamu</a>
+      <a href="#">Terpilih</a>
+      <a href="#materi">Materi Akademik</a>
+      <a href="#artikel">Artikel Komunitas</a>
+      <a href="#toko">Toko Edukasi</a>
+      <a href="#">Parenting</a>
+      <a href="#">Sekolah</a>
+      <a href="#">Kesehatan Mental</a>
+    </div>
+  </div>
+</section>
+
+<!-- ================= APP CARD GRID ================= -->
+<section class="app-grid-section">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow">Mulai dari sini</div>
+      <h2>Empat ruang, satu tujuan</h2>
+    </div>
+    <div class="app-grid">
+      <a class="app-card" href="#materi">
+        <div class="app-badge" style="background:var(--sky-pale);">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#1F4E8C" stroke-width="1.8"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+        </div>
+        <h4>Materi</h4>
+        <span>Publikasi akademik & bahan ajar</span>
+      </a>
+      <a class="app-card" href="#artikel">
+        <div class="app-badge" style="background:var(--gold-pale);">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#C69A3E" stroke-width="1.8"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg>
+        </div>
+        <h4>Artikel</h4>
+        <span>Cerita nyata dari komunitas</span>
+      </a>
+      <a class="app-card" href="#toko">
+        <div class="app-badge" style="background:var(--mint-pale);">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#3F8F6B" stroke-width="1.8"><rect x="3" y="8" width="18" height="13" rx="2"/><path d="M3 12h18"/><path d="M8 8V6a4 4 0 0 1 8 0v2"/></svg>
+        </div>
+        <h4>Toko</h4>
+        <span>Alat bantu edukasi fisik</span>
+      </a>
+      <a class="app-card" href="#tentang">
+        <div class="app-badge" style="background:var(--lilac-pale);">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#7C63C9" stroke-width="1.8"><circle cx="9" cy="8" r="3.2"/><circle cx="17" cy="9" r="2.6"/><path d="M3 20c0-3.5 2.7-6 6-6s6 2.5 6 6"/><path d="M14 14.3c2.6.3 4.5 2.4 4.5 5.7"/></svg>
+        </div>
+        <h4>Komunitas</h4>
+        <span>Forum & ruang saling dukung</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ================= CTA BANNER ================= -->
+<section class="cta-banner-wrap">
+  <div class="wrap">
+    <a class="cta-banner" href="#tanda">
+      <div class="cta-icon">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.7"><path d="M12 2l8 3.6v5.4c0 5-3.4 8.9-8 10-4.6-1.1-8-5-8-10V5.6Z"/><path d="M9.5 12l1.8 1.8L15 10"/></svg>
+      </div>
+      <div>
+        <h4>Kenali pola bahaya sejak dini</h4>
+        <p>Panduan singkat berbasis riset psikologi anak — untuk membantu Anda lebih peka, bukan untuk menuduh.</p>
+      </div>
+      <div class="cta-arrow">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg>
+      </div>
+    </a>
+  </div>
+</section>
+
+<!-- ================= RECENT: MATERI & ARTIKEL ================= -->
+<section class="recent-section" id="materi">
+  <div class="wrap">
+    <div class="recent-head"><h3>Materi &amp; artikel terbaru</h3></div>
+    <div class="recent-grid">
+      <div class="recent-card">
+        <div class="recent-thumb t1"><span class="tag">Materi</span></div>
+        <div class="recent-body">
+          <h4>Kurikulum Edukasi Batasan Tubuh untuk Kelas 1–3 SD</h4>
+          <div class="recent-meta"><span>Tim Kurikulum</span><span>·</span><span>7 menit</span></div>
+        </div>
+      </div>
+      <div class="recent-card" id="artikel">
+        <div class="recent-thumb t2"><span class="tag">Artikel</span></div>
+        <div class="recent-body">
+          <h4>Malam Ketika Saya Akhirnya Percaya Cerita Anak Saya</h4>
+          <div class="recent-meta"><span>Rina, Bandung</span><span>·</span><span>6 menit</span></div>
+        </div>
+      </div>
+      <div class="recent-card">
+        <div class="recent-thumb t3"><span class="tag">Materi</span></div>
+        <div class="recent-body">
+          <h4>Peran Komunitas RT/RW dalam Deteksi Dini Kekerasan Anak</h4>
+          <div class="recent-meta"><span>Jurnal Sosial</span><span>·</span><span>10 menit</span></div>
+        </div>
+      </div>
+      <div class="recent-card">
+        <div class="recent-thumb t4"><span class="tag">Artikel</span></div>
+        <div class="recent-body">
+          <h4>Yang Saya Pelajari Setelah 10 Tahun Mengajar Kelas 4 SD</h4>
+          <div class="recent-meta"><span>Budi, Surabaya</span><span>·</span><span>5 menit</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= SIGNS ================= -->
+<section class="signs" id="tanda">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow">Panduan cepat</div>
+      <h2>Pola umum yang perlu diwaspadai</h2>
+      <p>Bukan daftar untuk menuduh, melainkan pengingat agar kita lebih peka. Bila lebih dari satu pola ini konsisten muncul, ajak anak bicara dan cari pendampingan profesional.</p>
+    </div>
+    <div class="signs-grid">
+      <div class="sign-card"><div class="sign-num">01</div><h4>Perhatian &amp; hadiah berlebihan</h4><p>Perhatian khusus dari satu orang dewasa kepada anak tertentu, disertai permintaan agar dirahasiakan.</p></div>
+      <div class="sign-card"><div class="sign-num">02</div><h4>Upaya memisahkan anak</h4><p>Mendorong anak menjauh dari keluarga atau teman, berusaha jadi satu-satunya yang "dipercaya".</p></div>
+      <div class="sign-card"><div class="sign-num">03</div><h4>Permintaan menyimpan rahasia</h4><p>Membangun kebiasaan komunikasi rahasia, meminta anak tidak bercerita pada orang tua.</p></div>
+      <div class="sign-card"><div class="sign-num">04</div><h4>Batas fisik yang bergeser</h4><p>Kontak fisik berangsur melewati batas nyaman anak, atau sering menciptakan situasi berdua tanpa pengawasan.</p></div>
+    </div>
+    <div class="signs-note">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#1F4E8C" stroke-width="2" style="flex-shrink:0; margin-top:1px;"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>
+      <span>Jika Anda atau anak berada dalam situasi darurat, hubungi SAPA 129 (telepon 129 atau WhatsApp 08111129129).</span>
+    </div>
+  </div>
+</section>
+
+<!-- ================= SHOP ================= -->
+<section class="shop" id="toko">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow">Toko Edukasi</div>
+      <h2>Alat bantu bermain untuk mengajarkan batasan tubuh</h2>
+      <p>Dirancang bersama konselor anak — cocok untuk orang tua di rumah, guru di kelas, atau fasilitator komunitas.</p>
+    </div>
+    <div class="shop-grid">
+      <div class="product-card">
+        <div class="product-thumb t1"><svg width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.3" opacity=".85"><rect x="3" y="4" width="18" height="14" rx="2"/><path d="M3 9h18M9 4v14"/></svg></div>
+        <div class="product-body">
+          <div class="product-cat">Papan Cerita</div>
+          <h4>Papan Cerita Batas Tubuh</h4>
+          <div class="product-foot"><span class="price">Rp185.000</span><button class="add-btn" onclick="addToCart(this)"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg></button></div>
+        </div>
+      </div>
+      <div class="product-card">
+        <div class="product-thumb t2"><svg width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.3" opacity=".85"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="M8 8h8M8 12h8M8 16h5"/></svg></div>
+        <div class="product-body">
+          <div class="product-cat">Kartu Edukasi</div>
+          <h4>Kartu "Aman / Tidak Aman"</h4>
+          <div class="product-foot"><span class="price">Rp95.000</span><button class="add-btn" onclick="addToCart(this)"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg></button></div>
+        </div>
+      </div>
+      <div class="product-card">
+        <div class="product-thumb t3"><svg width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.3" opacity=".85"><circle cx="12" cy="12" r="9"/><path d="M12 3v18M3 12h18"/></svg></div>
+        <div class="product-body">
+          <div class="product-cat">Puzzle</div>
+          <h4>Puzzle Lingkaran Kepercayaan</h4>
+          <div class="product-foot"><span class="price">Rp120.000</span><button class="add-btn" onclick="addToCart(this)"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg></button></div>
+        </div>
+      </div>
+      <div class="product-card">
+        <div class="product-thumb t4"><svg width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.3" opacity=".85"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg></div>
+        <div class="product-body">
+          <div class="product-cat">Modul Guru</div>
+          <h4>Panduan Guru: Modul Pencegahan</h4>
+          <div class="product-foot"><span class="price">Rp75.000</span><button class="add-btn" onclick="addToCart(this)"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg></button></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= TESTIMONIALS ================= -->
+<section class="testi" id="tentang">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow">Suara komunitas</div>
+      <h2>Dipercaya orang tua, guru, dan pendamping komunitas</h2>
+      <p>Contoh tanggapan dari pengguna platform (ilustratif).</p>
+    </div>
+    <div class="testi-grid">
+      <div class="testi-card">
+        <p class="testi-quote">"Materi akademiknya membantu saya menjelaskan pada suami saya, dengan bahasa yang tidak menakutkan, kenapa kami perlu lebih waspada."</p>
+        <div class="testi-person"><div class="testi-avatar">R</div><div><b>Rina</b><span>Ibu dua anak, Bandung</span></div></div>
+      </div>
+      <div class="testi-card">
+        <p class="testi-quote">"Kartu 'aman/tidak aman' jadi alat pembuka obrolan paling mudah yang pernah saya pakai di kelas 2 SD."</p>
+        <div class="testi-person"><div class="testi-avatar">B</div><div><b>Budi Santoso</b><span>Guru SD, Surabaya</span></div></div>
+      </div>
+      <div class="testi-card">
+        <p class="testi-quote">"Artikel dari sesama orang tua membuat saya merasa tidak sendirian menghadapi percakapan yang sulit ini."</p>
+        <div class="testi-person"><div class="testi-avatar">S</div><div><b>Sari Wulandari</b><span>Pendamping komunitas, Yogyakarta</span></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= NEWSLETTER ================= -->
+<section class="news-cta">
+  <div class="wrap">
+    <div class="news-cta-box">
+      <div>
+        <h3>Dapatkan materi &amp; tips baru setiap bulan</h3>
+        <p>Ringkasan artikel, temuan akademik, dan produk baru — langsung ke surel Anda, tanpa spam.</p>
+      </div>
+      <form class="news-form" onsubmit="event.preventDefault(); this.querySelector('button').textContent='Terkirim ✓';">
+        <input type="email" placeholder="Alamat email Anda" required>
+        <button type="submit" class="btn">Berlangganan</button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- ================= FOOTER ================= -->
+<footer>
+  <div class="wrap">
+    <div class="footer-grid">
+      <div>
+        <div class="footer-logo">
+          <svg width="28" height="28" viewBox="0 0 44 44" fill="none"><path d="M22 3 L38 9 V21 C38 31 31 38.5 22 41 C13 38.5 6 31 6 21 V9 Z" fill="#0D2745" stroke="#C69A3E" stroke-width="1.6"/><path d="M22 8 L33 12.3 V21 C33 28.5 28 34 22 36.2 C16 34 11 28.5 11 21 V12.3 Z" fill="#1F4E8C"/></svg>
+          <span>Pelita Anak</span>
+        </div>
+        <p>Platform edukasi dan komunitas untuk mencegah grooming pada anak — dibangun bersama akademisi, guru, dan orang tua.</p>
+        <div class="emergency-box">
+          <b>Butuh bantuan darurat?</b>
+          <span>Hubungi SAPA 129 — Telepon 129 atau WhatsApp 08111129129 (layanan Kementerian PPPA, gratis &amp; rahasia).</span>
+        </div>
+      </div>
+      <div class="footer-col"><h5>Jelajahi</h5><ul><li><a href="#materi">Materi Akademik</a></li><li><a href="#artikel">Artikel Komunitas</a></li><li><a href="#toko">Toko Edukasi</a></li></ul></div>
+      <div class="footer-col"><h5>Tentang</h5><ul><li><a href="#">Misi Kami</a></li><li><a href="#">Tim &amp; Mitra</a></li><li><a href="#">Kontak</a></li></ul></div>
+      <div class="footer-col"><h5>Ikuti Kami</h5><ul><li><a href="#">Instagram</a></li><li><a href="#">YouTube</a></li><li><a href="#">Newsletter</a></li></ul></div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 Pelita Anak. Seluruh hak cipta dilindungi.</span>
+      <span>Kebijakan Privasi · Syarat &amp; Ketentuan</span>
+    </div>
+  </div>
+</footer>
+
+<script src="./assets/js/main.js"></script>
+</body>
+</html>
