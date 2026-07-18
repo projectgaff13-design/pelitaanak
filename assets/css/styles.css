@@ -52,10 +52,10 @@
   .cart-count{position:absolute; top:-3px; right:-3px; background:var(--gold); color:var(--navy-deep); font-size:10px; font-weight:800; width:16px; height:16px; border-radius:50%; display:flex; align-items:center; justify-content:center;}
 
   /* ---------- TICKER ---------- */
-  .ticker-bar{position:relative; z-index:1; background:var(--navy); color:#fff; display:flex; align-items:center; height:42px; overflow:hidden;}
-  .ticker-tag{background:var(--gold); color:var(--navy-deep); font-size:11.5px; font-weight:800; letter-spacing:.06em; padding:0 18px; height:100%; display:flex; align-items:center; flex-shrink:0;}
-  .ticker-track{display:flex; gap:56px; white-space:nowrap; animation:scroll-left 28s linear infinite; padding-left:24px; font-size:13px; color:rgba(255,255,255,.85);}
-  .ticker-track span{display:flex; align-items:center; gap:10px;}
+  .ticker-bar{position:relative; z-index:1; background:var(--navy); color:#fff; display:flex; align-items:center; height:42px; overflow:hidden; max-width:100vw; isolation:isolate;}
+  .ticker-tag{background:var(--gold); color:var(--navy-deep); font-size:11.5px; font-weight:800; letter-spacing:.06em; padding:0 18px; height:100%; display:flex; align-items:center; flex-shrink:0; position:relative; z-index:2; box-shadow:12px 0 18px rgba(13,39,69,.28);}
+  .ticker-track{position:absolute; left:88px; right:0; top:0; height:100%; min-width:max-content; display:flex; align-items:center; gap:56px; white-space:nowrap; animation:scroll-left 32s linear infinite; padding-left:24px; font-size:13px; color:rgba(255,255,255,.85); will-change:transform;}
+  .ticker-track span{display:flex; align-items:center; gap:10px; flex-shrink:0;}
   .ticker-track span::before{content:"•"; color:var(--gold);}
   @keyframes scroll-left{ 0%{transform:translateX(0);} 100%{transform:translateX(-50%);} }
 
@@ -223,8 +223,9 @@ button.icon-btn{border:0;font:inherit;}
   .logo-text{font-size:17px;}
   .logo-text span{font-size:9px;}
   .nav-right .btn{display:none;}
-  .ticker-bar{height:auto;min-height:38px;}
+  .ticker-bar{height:38px;min-height:38px;}
   .ticker-tag{padding:10px 12px;}
+  .ticker-track{left:75px; gap:34px; font-size:12.5px;}
   .hero{padding-top:26px;}
   .hero-main{gap:26px;}
   .hero-text h1{font-size:30px;}
