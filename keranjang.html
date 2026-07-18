@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Keranjang Saya — Pelita Anak</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,500&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="./assets/css/styles.css">
+</head>
+<body>
+<a class="skip-link" href="#konten">Lewati ke konten utama</a>
+<!-- ================= HEADER + TICKER ================= -->
+<div class="site-topbar">
+  <header>
+    <div class="wrap nav-inner">
+      <div class="logo">
+        <a href="index.html" style="display:flex;align-items:center;gap:11px;">
+        <svg class="logo-mark" viewBox="0 0 44 44" fill="none">
+          <path d="M22 3 L38 9 V21 C38 31 31 38.5 22 41 C13 38.5 6 31 6 21 V9 Z" fill="#0D2745" stroke="#C69A3E" stroke-width="1.6"/>
+          <path d="M22 8 L33 12.3 V21 C33 28.5 28 34 22 36.2 C16 34 11 28.5 11 21 V12.3 Z" fill="#1F4E8C"/>
+          <circle cx="22" cy="19" r="4.4" fill="#F5F8FB"/>
+          <path d="M14.5 29 C14.5 23.5 18 21 22 21 C26 21 29.5 23.5 29.5 29" stroke="#F5F8FB" stroke-width="2.3" stroke-linecap="round" fill="none"/>
+        </svg>
+        <div class="logo-text">Pelita Anak<span>Cegah Grooming, Lindungi Anak</span></div>
+        </a>
+      </div>
+      <nav class="main-nav">
+        <a href="index.html">Beranda</a>
+        <a href="materi.html">Materi</a>
+        <a href="artikel.html">Artikel</a>
+        <a href="toko.html" class="active">Toko</a>
+        <a href="mother-sharing.html">Mother Sharing</a>
+      </nav>
+      <div class="nav-right">
+        <div class="search-box">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
+          Cari artikel…
+        </div>
+        <a class="icon-btn" id="cartIcon" href="keranjang.html" aria-label="Keranjang">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+          <span class="cart-count" id="cartCount">0</span>
+        </a>
+        <a href="#" class="btn btn-primary" style="padding:10px 22px; font-size:13.5px;">Subscribe</a>
+      </div>
+    </div>
+  </header>
+
+  <div class="ticker-bar">
+    <div class="ticker-tag">TERKINI</div>
+    <div class="ticker-track">
+      <span>Kurikulum edukasi batas tubuh resmi masuk 12 sekolah mitra di Jabodetabek</span>
+      <span>Webinar gratis: Mengenali grooming online, Sabtu ini pukul 10.00</span>
+      <span>Modul guru baru: Panduan sesi kelompok kecil untuk kelas 1–3 SD</span>
+      <span>Kurikulum edukasi batas tubuh resmi masuk 12 sekolah mitra di Jabodetabek</span>
+      <span>Webinar gratis: Mengenali grooming online, Sabtu ini pukul 10.00</span>
+      <span>Modul guru baru: Panduan sesi kelompok kecil untuk kelas 1–3 SD</span>
+    </div>
+  </div>
+</div>
+
+<section class="page-hero">
+  <div class="wrap">
+    <div class="breadcrumb"><a href="index.html">Beranda</a><span>/</span><a href="toko.html">Toko</a><span>/</span><span>Keranjang</span></div>
+    <div class="eyebrow">Toko Edukasi</div>
+    <h1>Keranjang Saya</h1>
+    <p>Tinjau produk yang sudah Anda tambahkan, atur jumlah, lalu lanjutkan ke checkout.</p>
+  </div>
+</section>
+
+<section class="page-body" id="konten">
+  <div class="wrap" style="max-width:980px;">
+
+    <div id="cartEmpty" class="empty-state" style="display:none;">
+      <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="#C9D4E2" stroke-width="1.5"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+      <h3>Keranjang Anda masih kosong</h3>
+      <p>Yuk lihat-lihat alat bantu edukasi di Toko Pelita Anak.</p>
+      <a href="toko.html" class="btn btn-primary">Belanja Sekarang</a>
+    </div>
+
+    <div id="cartFilled" style="display:none;">
+      <div class="cart-shell">
+        <div class="cart-row head">
+          <input type="checkbox" class="chk" id="selectAll" onclick="toggleAll(this)">
+          <span>Produk</span>
+          <span class="col-unit">Harga Satuan</span>
+          <span>Kuantitas</span>
+          <span class="col-total">Total Harga</span>
+          <span>Aksi</span>
+        </div>
+        <div class="cart-store">
+          <span class="badge-star">Toko</span> Toko Edukasi Pelita Anak
+        </div>
+        <div id="cartRows"></div>
+      </div>
+
+      <div class="cart-footer-bar">
+        <div class="cart-footer-left">
+          <label style="display:flex; align-items:center; gap:10px; cursor:pointer;">
+            <input type="checkbox" class="chk" id="selectAll2" onclick="toggleAll(this)">
+            <span id="selectAllLabel">Pilih Semua (0)</span>
+          </label>
+          <a onclick="deleteSelected()">Hapus</a>
+        </div>
+        <div class="cart-footer-right">
+          <div class="grand-total"><span id="totalLabel">Total (0 produk):</span> <b id="totalAmount">Rp0</b></div>
+          <button class="btn btn-primary" onclick="goToCheckout()">Checkout</button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<script>
+  const selected = new Set(); // ids currently checked
+
+  function fmtRp(n){ return 'Rp' + n.toLocaleString('id-ID'); }
+
+  function renderCart(){
+    const cart = loadCart();
+    const emptyEl = document.getElementById('cartEmpty');
+    const filledEl = document.getElementById('cartFilled');
+    if(cart.length === 0){
+      emptyEl.style.display = 'block';
+      filledEl.style.display = 'none';
+      return;
+    }
+    emptyEl.style.display = 'none';
+    filledEl.style.display = 'block';
+
+    // default: everything selected the first time we see an id
+    cart.forEach(item => { if(!selected.has(item.id) && !seenIds.has(item.id)){ selected.add(item.id); } seenIds.add(item.id); });
+
+    const rowsEl = document.getElementById('cartRows');
+    rowsEl.innerHTML = cart.map(item => {
+      const checked = selected.has(item.id) ? 'checked' : '';
+      const lineTotal = item.price * item.qty;
+      return `
+      <div class="cart-row" data-id="${item.id}">
+        <input type="checkbox" class="chk" ${checked} onclick="toggleOne('${item.id}', this)">
+        <div class="cart-product">
+          <div class="cart-thumb ${item.thumb}"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.5" opacity=".85"><rect x="4" y="4" width="16" height="16" rx="3"/></svg></div>
+          <div class="cart-product-info">
+            <h4>${item.name}</h4>
+            <span>${item.category || ''}</span>
+          </div>
+        </div>
+        <div class="cart-unit-price col-unit">${fmtRp(item.price)}</div>
+        <div class="qty-stepper">
+          <button onclick="stepQty('${item.id}', -1)">−</button>
+          <span>${item.qty}</span>
+          <button onclick="stepQty('${item.id}', 1)">+</button>
+        </div>
+        <div class="cart-total-price col-total">${fmtRp(lineTotal)}</div>
+        <button class="cart-remove" onclick="removeOne('${item.id}')">Hapus</button>
+      </div>`;
+    }).join('');
+
+    recalc();
+  }
+  const seenIds = new Set();
+
+  function stepQty(id, dir){
+    const cart = loadCart();
+    const item = cart.find(i=>i.id===id);
+    if(!item) return;
+    item.qty = Math.max(1, item.qty + dir);
+    saveCart(cart);
+    renderCart();
+  }
+  function removeOne(id){
+    let cart = loadCart();
+    cart = cart.filter(i=>i.id!==id);
+    saveCart(cart);
+    selected.delete(id);
+    renderCart();
+  }
+  function deleteSelected(){
+    if(selected.size === 0) return;
+    let cart = loadCart();
+    cart = cart.filter(i=>!selected.has(i.id));
+    saveCart(cart);
+    selected.clear();
+    renderCart();
+  }
+  function toggleOne(id, el){
+    if(el.checked) selected.add(id); else selected.delete(id);
+    document.querySelectorAll(`.cart-row[data-id="${id}"] .chk`).forEach(c=>c.checked = el.checked);
+    recalc();
+  }
+  function toggleAll(el){
+    const cart = loadCart();
+    if(el.checked){ cart.forEach(i=>selected.add(i.id)); } else { selected.clear(); }
+    document.querySelectorAll('.cart-row .chk').forEach(c=>c.checked = el.checked);
+    document.getElementById('selectAll').checked = el.checked;
+    document.getElementById('selectAll2').checked = el.checked;
+    recalc();
+  }
+  function recalc(){
+    const cart = loadCart();
+    let count = 0, total = 0;
+    cart.forEach(item=>{
+      if(selected.has(item.id)){ count++; total += item.price * item.qty; }
+    });
+    document.getElementById('selectAllLabel').textContent = `Pilih Semua (${cart.length})`;
+    document.getElementById('totalLabel').textContent = `Total (${count} produk):`;
+    document.getElementById('totalAmount').textContent = fmtRp(total);
+    const allChecked = cart.length > 0 && cart.every(i=>selected.has(i.id));
+    document.getElementById('selectAll').checked = allChecked;
+    document.getElementById('selectAll2').checked = allChecked;
+  }
+  function goToCheckout(){
+    const cart = loadCart();
+    const items = cart.filter(i=>selected.has(i.id));
+    if(items.length === 0){
+      alert('Pilih minimal satu produk untuk checkout.');
+      return;
+    }
+    sessionStorage.setItem('pelitaCheckoutItems', JSON.stringify(items));
+    window.location.href = 'checkout.html';
+  }
+
+  document.addEventListener('DOMContentLoaded', renderCart);
+</script>
+<!-- ================= FOOTER ================= -->
+<footer>
+  <div class="wrap">
+    <div class="footer-grid">
+      <div>
+        <div class="footer-logo">
+          <svg width="28" height="28" viewBox="0 0 44 44" fill="none"><path d="M22 3 L38 9 V21 C38 31 31 38.5 22 41 C13 38.5 6 31 6 21 V9 Z" fill="#0D2745" stroke="#C69A3E" stroke-width="1.6"/><path d="M22 8 L33 12.3 V21 C33 28.5 28 34 22 36.2 C16 34 11 28.5 11 21 V12.3 Z" fill="#1F4E8C"/></svg>
+          <span>Pelita Anak</span>
+        </div>
+        <p>Platform edukasi dan komunitas untuk mencegah grooming pada anak — dibangun bersama akademisi, guru, dan orang tua.</p>
+        <div class="emergency-box">
+          <b>Butuh bantuan darurat?</b>
+          <span>Hubungi SAPA 129 — Telepon 129 atau WhatsApp 08111129129 (layanan Kementerian PPPA, gratis &amp; rahasia).</span>
+        </div>
+      </div>
+      <div class="footer-col"><h5>Jelajahi</h5><ul><li><a href="materi.html">Materi Akademik</a></li><li><a href="artikel.html">Artikel Komunitas</a></li><li><a href="toko.html">Toko Edukasi</a></li><li><a href="mother-sharing.html">Mother Sharing</a></li></ul></div>
+      <div class="footer-col"><h5>Tentang</h5><ul><li><a href="#">Misi Kami</a></li><li><a href="#">Tim &amp; Mitra</a></li><li><a href="#">Kontak</a></li></ul></div>
+      <div class="footer-col"><h5>Ikuti Kami</h5><ul><li><a href="#">Instagram</a></li><li><a href="#">YouTube</a></li><li><a href="#">Newsletter</a></li></ul></div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 Pelita Anak. Seluruh hak cipta dilindungi.</span>
+      <span>Kebijakan Privasi · Syarat &amp; Ketentuan</span>
+    </div>
+  </div>
+</footer>
+
+<script src="./assets/js/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Checkout — Pelita Anak</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,500&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="./assets/css/styles.css">
+</head>
+<body>
+<a class="skip-link" href="#konten">Lewati ke konten utama</a>
+<!-- ================= HEADER + TICKER ================= -->
+<div class="site-topbar">
+  <header>
+    <div class="wrap nav-inner">
+      <div class="logo">
+        <a href="index.html" style="display:flex;align-items:center;gap:11px;">
+        <svg class="logo-mark" viewBox="0 0 44 44" fill="none">
+          <path d="M22 3 L38 9 V21 C38 31 31 38.5 22 41 C13 38.5 6 31 6 21 V9 Z" fill="#0D2745" stroke="#C69A3E" stroke-width="1.6"/>
+          <path d="M22 8 L33 12.3 V21 C33 28.5 28 34 22 36.2 C16 34 11 28.5 11 21 V12.3 Z" fill="#1F4E8C"/>
+          <circle cx="22" cy="19" r="4.4" fill="#F5F8FB"/>
+          <path d="M14.5 29 C14.5 23.5 18 21 22 21 C26 21 29.5 23.5 29.5 29" stroke="#F5F8FB" stroke-width="2.3" stroke-linecap="round" fill="none"/>
+        </svg>
+        <div class="logo-text">Pelita Anak<span>Cegah Grooming, Lindungi Anak</span></div>
+        </a>
+      </div>
+      <nav class="main-nav">
+        <a href="index.html">Beranda</a>
+        <a href="materi.html">Materi</a>
+        <a href="artikel.html">Artikel</a>
+        <a href="toko.html" class="active">Toko</a>
+        <a href="mother-sharing.html">Mother Sharing</a>
+      </nav>
+      <div class="nav-right">
+        <div class="search-box">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
+          Cari artikel…
+        </div>
+        <a class="icon-btn" id="cartIcon" href="keranjang.html" aria-label="Keranjang">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+          <span class="cart-count" id="cartCount">0</span>
+        </a>
+        <a href="#" class="btn btn-primary" style="padding:10px 22px; font-size:13.5px;">Subscribe</a>
+      </div>
+    </div>
+  </header>
+
+  <div class="ticker-bar">
+    <div class="ticker-tag">TERKINI</div>
+    <div class="ticker-track">
+      <span>Kurikulum edukasi batas tubuh resmi masuk 12 sekolah mitra di Jabodetabek</span>
+      <span>Webinar gratis: Mengenali grooming online, Sabtu ini pukul 10.00</span>
+      <span>Modul guru baru: Panduan sesi kelompok kecil untuk kelas 1–3 SD</span>
+      <span>Kurikulum edukasi batas tubuh resmi masuk 12 sekolah mitra di Jabodetabek</span>
+      <span>Webinar gratis: Mengenali grooming online, Sabtu ini pukul 10.00</span>
+      <span>Modul guru baru: Panduan sesi kelompok kecil untuk kelas 1–3 SD</span>
+    </div>
+  </div>
+</div>
+
+<section class="page-hero">
+  <div class="wrap">
+    <div class="breadcrumb"><a href="index.html">Beranda</a><span>/</span><a href="keranjang.html">Keranjang</a><span>/</span><span>Checkout</span></div>
+    <div class="eyebrow">Toko Edukasi</div>
+    <h1>Checkout</h1>
+    <p>Ini adalah simulasi tampilan checkout — data alamat &amp; pembayaran di bawah ini contoh (dummy), belum terhubung ke pembayaran sungguhan.</p>
+  </div>
+</section>
+
+<section class="page-body" id="konten">
+  <div class="wrap">
+
+    <div id="checkoutEmpty" class="empty-state" style="display:none;">
+      <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="#C9D4E2" stroke-width="1.5"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+      <h3>Belum ada produk untuk di-checkout</h3>
+      <p>Kembali ke keranjang untuk memilih produk terlebih dahulu.</p>
+      <a href="toko.html" class="btn btn-primary">Belanja Sekarang</a>
+    </div>
+
+    <div id="checkoutFilled" style="display:none;">
+      <div class="checkout-layout">
+        <div>
+          <!-- Alamat -->
+          <div class="checkout-card">
+            <h3><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#1F4E8C" stroke-width="2"><path d="M21 10c0 7-9 12-9 12s-9-5-9-12a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg> Alamat Pengiriman</h3>
+            <div class="address-box">
+              <div>
+                <div class="who" id="addrName">Nama Penerima (+62 8xx-xxxx-xxxx)<span class="tag-default">Utama</span></div>
+                <div class="detail" id="addrDetail">Jalan Contoh No. 12, Kelurahan Contoh, Kecamatan Contoh, Kota Contoh, Provinsi Contoh, 12345</div>
+              </div>
+              <button class="chk-btn" onclick="editAddress()">Ubah</button>
+            </div>
+          </div>
+
+          <!-- Produk -->
+          <div class="checkout-card">
+            <h3><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#1F4E8C" stroke-width="2"><rect x="3" y="8" width="18" height="13" rx="2"/><path d="M3 12h18"/><path d="M8 8V6a4 4 0 0 1 8 0v2"/></svg> Produk Dipesan</h3>
+            <div style="font-size:12.5px; font-weight:700; color:var(--navy); margin-bottom:6px;">Toko Edukasi Pelita Anak</div>
+            <div id="coProducts"></div>
+            <label class="protect-row" style="margin-top:14px; cursor:pointer;">
+              <input type="checkbox" id="protectChk" onchange="recalcSummary()" style="accent-color:var(--navy); width:16px; height:16px;">
+              <span><b>Proteksi Kerusakan+</b> — Dapatkan kompensasi bila barang rusak saat pengiriman. (+Rp2.000)</span>
+            </label>
+          </div>
+
+          <!-- Pengiriman -->
+          <div class="checkout-card">
+            <h3><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#1F4E8C" stroke-width="2"><rect x="1" y="3" width="15" height="13" rx="2"/><path d="M16 8h4l3 3v5h-7V8z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg> Metode Pengiriman</h3>
+            <div class="field-row">
+              <span>Pilih kurir</span>
+              <select id="shippingSelect" onchange="recalcSummary()">
+                <option value="15000">Reguler (2-4 hari) — Rp15.000</option>
+                <option value="27000">Ekspres (1-2 hari) — Rp27.000</option>
+                <option value="0">Ambil di Titik Komunitas — Gratis</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Pembayaran -->
+          <div class="checkout-card">
+            <h3><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#1F4E8C" stroke-width="2"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20"/></svg> Metode Pembayaran</h3>
+            <div class="pay-options" id="payOptions">
+              <label class="pay-option checked"><input type="radio" name="pay" value="Transfer Bank" checked onclick="markPay(this)"> Transfer Bank</label>
+              <label class="pay-option"><input type="radio" name="pay" value="E-Wallet" onclick="markPay(this)"> E-Wallet (OVO / DANA / GoPay)</label>
+              <label class="pay-option"><input type="radio" name="pay" value="Bayar di Tempat (COD)" onclick="markPay(this)"> Bayar di Tempat (COD)</label>
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <div class="checkout-card summary-card">
+            <h3>Ringkasan Belanja</h3>
+            <div class="summary-row"><span id="subtotalLabel">Subtotal Produk</span><span id="subtotalAmount">Rp0</span></div>
+            <div class="summary-row"><span>Biaya Pengiriman</span><span id="shipAmount">Rp0</span></div>
+            <div class="summary-row" id="protectRowSummary" style="display:none;"><span>Proteksi Kerusakan+</span><span id="protectAmount">Rp0</span></div>
+            <div class="summary-row total"><span>Total Pembayaran</span><b id="grandTotal">Rp0</b></div>
+            <button class="btn btn-primary place-order-btn" onclick="placeOrder()">Buat Pesanan</button>
+            <div class="checkout-note">Dengan klik "Buat Pesanan", Anda menyelesaikan simulasi checkout ini. Tidak ada transaksi pembayaran sungguhan yang terjadi.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="orderSuccess" style="display:none;">
+      <div class="order-success">
+        <div class="check-circle"><svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg></div>
+        <h2>Pesanan Berhasil Dibuat</h2>
+        <p>Ini simulasi tampilan checkout — belum ada pembayaran sungguhan yang diproses.</p>
+        <div class="order-id" id="orderId">No. Pesanan: PA-000000</div>
+        <a href="index.html" class="btn btn-outline-navy">Kembali ke Beranda</a>
+        <a href="toko.html" class="btn btn-primary" style="margin-left:10px;">Belanja Lagi</a>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<script>
+  function fmtRp(n){ return 'Rp' + n.toLocaleString('id-ID'); }
+
+  let checkoutItems = [];
+
+  function loadCheckoutItems(){
+    try{
+      const raw = sessionStorage.getItem('pelitaCheckoutItems');
+      if(raw){
+        const items = JSON.parse(raw);
+        if(items && items.length) return items;
+      }
+    }catch(e){}
+    // fallback: whole cart
+    return loadCart();
+  }
+
+  function renderCheckout(){
+    checkoutItems = loadCheckoutItems();
+    const emptyEl = document.getElementById('checkoutEmpty');
+    const filledEl = document.getElementById('checkoutFilled');
+    if(!checkoutItems || checkoutItems.length === 0){
+      emptyEl.style.display = 'block';
+      filledEl.style.display = 'none';
+      return;
+    }
+    emptyEl.style.display = 'none';
+    filledEl.style.display = 'block';
+
+    const el = document.getElementById('coProducts');
+    el.innerHTML = checkoutItems.map(item => `
+      <div class="co-product-row">
+        <div class="co-thumb ${item.thumb}"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.5" opacity=".85"><rect x="4" y="4" width="16" height="16" rx="3"/></svg></div>
+        <div class="co-info">
+          <h5>${item.name}</h5>
+          <span>${item.category || ''} · Jumlah: ${item.qty}</span>
+        </div>
+        <div class="co-price-col">
+          <div>${fmtRp(item.price)}</div>
+          <div class="sub">${fmtRp(item.price * item.qty)}</div>
+        </div>
+      </div>
+    `).join('');
+
+    document.getElementById('subtotalLabel').textContent = `Subtotal Produk (${checkoutItems.length})`;
+    recalcSummary();
+  }
+
+  function markPay(el){
+    document.querySelectorAll('.pay-option').forEach(p=>p.classList.remove('checked'));
+    el.closest('.pay-option').classList.add('checked');
+  }
+
+  function editAddress(){
+    const name = prompt('Nama penerima:', document.getElementById('addrName').firstChild.textContent.split(' (')[0]);
+    if(name === null) return;
+    const detail = prompt('Alamat lengkap:', document.getElementById('addrDetail').textContent);
+    if(detail === null) return;
+    document.getElementById('addrName').firstChild.textContent = name + ' ';
+    document.getElementById('addrDetail').textContent = detail;
+  }
+
+  function recalcSummary(){
+    const subtotal = checkoutItems.reduce((s,i)=>s + i.price * i.qty, 0);
+    const shipping = parseInt(document.getElementById('shippingSelect').value, 10) || 0;
+    const protect = document.getElementById('protectChk').checked ? 2000 : 0;
+
+    document.getElementById('subtotalAmount').textContent = fmtRp(subtotal);
+    document.getElementById('shipAmount').textContent = fmtRp(shipping);
+    document.getElementById('protectRowSummary').style.display = protect ? 'flex' : 'none';
+    document.getElementById('protectAmount').textContent = fmtRp(protect);
+    document.getElementById('grandTotal').textContent = fmtRp(subtotal + shipping + protect);
+  }
+
+  function placeOrder(){
+    if(!checkoutItems || checkoutItems.length === 0) return;
+    const orderIds = checkoutItems.map(i=>i.id);
+    // remove ordered items from the persistent cart
+    let cart = loadCart();
+    cart = cart.filter(i => !orderIds.includes(i.id));
+    saveCart(cart);
+    sessionStorage.removeItem('pelitaCheckoutItems');
+
+    document.getElementById('checkoutFilled').style.display = 'none';
+    document.getElementById('checkoutEmpty').style.display = 'none';
+    const successEl = document.getElementById('orderSuccess');
+    const randomId = 'PA-' + Math.floor(100000 + Math.random()*900000);
+    document.getElementById('orderId').textContent = 'No. Pesanan: ' + randomId;
+    successEl.style.display = 'block';
+  }
+
+  document.addEventListener('DOMContentLoaded', renderCheckout);
+</script>
+<!-- ================= FOOTER ================= -->
+<footer>
+  <div class="wrap">
+    <div class="footer-grid">
+      <div>
+        <div class="footer-logo">
+          <svg width="28" height="28" viewBox="0 0 44 44" fill="none"><path d="M22 3 L38 9 V21 C38 31 31 38.5 22 41 C13 38.5 6 31 6 21 V9 Z" fill="#0D2745" stroke="#C69A3E" stroke-width="1.6"/><path d="M22 8 L33 12.3 V21 C33 28.5 28 34 22 36.2 C16 34 11 28.5 11 21 V12.3 Z" fill="#1F4E8C"/></svg>
+          <span>Pelita Anak</span>
+        </div>
+        <p>Platform edukasi dan komunitas untuk mencegah grooming pada anak — dibangun bersama akademisi, guru, dan orang tua.</p>
+        <div class="emergency-box">
+          <b>Butuh bantuan darurat?</b>
+          <span>Hubungi SAPA 129 — Telepon 129 atau WhatsApp 08111129129 (layanan Kementerian PPPA, gratis &amp; rahasia).</span>
+        </div>
+      </div>
+      <div class="footer-col"><h5>Jelajahi</h5><ul><li><a href="materi.html">Materi Akademik</a></li><li><a href="artikel.html">Artikel Komunitas</a></li><li><a href="toko.html">Toko Edukasi</a></li><li><a href="mother-sharing.html">Mother Sharing</a></li></ul></div>
+      <div class="footer-col"><h5>Tentang</h5><ul><li><a href="#">Misi Kami</a></li><li><a href="#">Tim &amp; Mitra</a></li><li><a href="#">Kontak</a></li></ul></div>
+      <div class="footer-col"><h5>Ikuti Kami</h5><ul><li><a href="#">Instagram</a></li><li><a href="#">YouTube</a></li><li><a href="#">Newsletter</a></li></ul></div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 Pelita Anak. Seluruh hak cipta dilindungi.</span>
+      <span>Kebijakan Privasi · Syarat &amp; Ketentuan</span>
+    </div>
+  </div>
+</footer>
+
+<script src="./assets/js/main.js"></script>
+</body>
+</html>
