@@ -415,3 +415,16 @@ button.icon-btn{border:0;font:inherit;}
 .admin-status.ok{background:#E8F1EC; color:#2f7d55;}
 .admin-status.err{background:#FCE9E7; color:#b42318;}
 @media (max-width:760px){.admin-login-grid{grid-template-columns:1fr}.admin-login-grid .btn{justify-content:center}}
+
+
+/* Admin direct image upload */
+.admin-image-field{grid-column:1 / -1;}
+.admin-upload-box{border:1px solid var(--line); background:var(--paper); border-radius:14px; padding:12px; display:grid; gap:12px;}
+.admin-image-preview{width:100%; max-width:340px; aspect-ratio:16/9; object-fit:cover; border-radius:12px; border:1px solid var(--line); background:#fff;}
+.admin-image-empty{width:100%; max-width:340px; aspect-ratio:16/9; display:flex; align-items:center; justify-content:center; color:var(--ink-soft); background:#fff; border:1px dashed var(--line); border-radius:12px; font-weight:700; text-transform:none; letter-spacing:0;}
+.admin-upload-actions{display:grid; grid-template-columns:1fr auto; gap:10px; align-items:center;}
+.admin-upload-actions input[data-field="imageUrl"]{width:100%;}
+.admin-upload-btn{display:inline-flex!important; align-items:center; justify-content:center; min-height:44px; padding:10px 16px; border-radius:12px; background:var(--navy); color:#fff!important; cursor:pointer; font-weight:800!important; text-transform:none!important; letter-spacing:0!important; white-space:nowrap;}
+.admin-upload-btn input{display:none;}
+.admin-upload-box small{color:var(--ink-soft); font-size:12px; font-weight:500; text-transform:none; letter-spacing:0;}
+@media (max-width:720px){.admin-upload-actions{grid-template-columns:1fr}.admin-upload-btn{width:100%;}}

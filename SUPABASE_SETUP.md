@@ -94,3 +94,16 @@ Vercel akan deploy otomatis.
 ## Catatan keamanan
 
 Versi ini memakai Supabase Auth. Policy saat ini mengizinkan user yang login untuk update konten. Jangan buat akun auth untuk orang yang tidak boleh mengedit website.
+
+
+## Upload gambar langsung dari admin
+
+Versi ini memakai Supabase Storage bucket:
+
+```txt
+pelita-images
+```
+
+Bucket dan policy dibuat otomatis oleh `supabase/schema.sql`. Jika sebelumnya kamu sudah menjalankan SQL lama, jalankan ulang file `supabase/schema.sql` terbaru di SQL Editor agar Storage bucket dan policy upload ikut dibuat.
+
+Di `admin.html`, login dulu, buka tab Hero/Beranda/Materi/Artikel/Mother Sharing/Toko, lalu klik **Upload gambar** pada field URL gambar. Setelah upload sukses, klik **Simpan Perubahan**.

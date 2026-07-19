@@ -113,6 +113,6 @@
   function renderAll(){ const data=get(); renderTicker(data); renderRecent(data); renderProducts(); const path=location.pathname.split('/').pop()||'index.html'; if(path==='materi.html') renderPublicationPage('materi'); if(path==='artikel.html') renderPublicationPage('artikel'); if(path==='mother-sharing.html') renderForum(); if(path==='toko.html') renderProducts(); document.dispatchEvent(new CustomEvent('pelita:content-ready',{detail:data})); }
   function ready(){ if(!readyPromise){ readyPromise = load().then(()=>{ renderAll(); return state; }); } return readyPromise; }
 
-  window.PelitaCMS = {LOCAL_KEY, DEFAULT, configured, getClient, get, load, save, signIn, signOut, getSession, ready, resetLocal, renderAll, rupiah};
+  window.PelitaCMS = {LOCAL_KEY, DEFAULT, config: cfg, configured, getClient, get, load, save, signIn, signOut, getSession, ready, resetLocal, renderAll, rupiah};
   document.addEventListener('DOMContentLoaded', ready);
 })();
