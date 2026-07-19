@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin Konten — Pelita Anak</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="./assets/css/styles.css">
+</head>
+<body class="admin-body">
+<header>
+  <div class="wrap nav-inner">
+    <a class="logo" href="index.html">
+      <svg class="logo-mark" viewBox="0 0 44 44" fill="none"><path d="M22 3 L38 9 V21 C38 31 31 38.5 22 41 C13 38.5 6 31 6 21 V9 Z" fill="#0D2745" stroke="#C69A3E" stroke-width="1.6"/><path d="M22 8 L33 12.3 V21 C33 28.5 28 34 22 36.2 C16 34 11 28.5 11 21 V12.3 Z" fill="#1F4E8C"/></svg>
+      <div class="logo-text">Pelita Anak<span>Admin Konten</span></div>
+    </a>
+    <nav class="main-nav"><a href="index.html">Beranda</a><a href="materi.html">Materi</a><a href="artikel.html">Artikel</a><a href="toko.html">Toko</a><a href="mother-sharing.html">Mother Sharing</a></nav>
+    <a class="btn btn-primary" href="index.html">Lihat Website</a>
+  </div>
+</header>
+
+<main class="admin-shell wrap">
+  <section class="admin-hero">
+    <div><div class="eyebrow">Admin Supabase</div><h1>Update postingan, gambar, dan tulisan</h1><p>Konten dibaca dan disimpan ke Supabase. Login admin diperlukan untuk menyimpan perubahan.</p></div>
+    <div class="admin-actions"><button class="btn btn-primary" id="saveBtn">Simpan Perubahan</button><button class="btn btn-outline-navy" id="exportBtn">Export JSON</button><button class="btn btn-outline-navy" id="importBtn">Import JSON</button><button class="btn btn-outline-navy" id="resetBtn">Reset Dummy</button></div>
+  </section>
+
+  <div id="authBox" class="admin-auth"></div>
+  <div id="adminStatus" class="admin-status info">Memuat admin...</div>
+  <div class="admin-tabs" id="adminTabs"></div>
+  <section class="admin-editor" id="adminEditor"></section>
+  <textarea id="jsonBox" class="admin-json" placeholder="JSON export/import akan muncul di sini"></textarea>
+</main>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="./assets/js/supabase-config.js"></script>
+<script src="./assets/js/cms.js"></script>
+<script src="./assets/js/admin.js"></script>
+</body>
+</html>
