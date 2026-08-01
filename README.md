@@ -1,6 +1,6 @@
-# Proof Landing Page (Vercel Ready)
+# PROOF Landing Page (Vercel Ready)
 
-Website statis untuk **Proof — Protect Our Future**. Paket ini sudah siap di-deploy ke Vercel tanpa build step tambahan.
+Website statis untuk **PROOF — Protect Our Future**. Paket ini sudah siap di-deploy ke Vercel tanpa build step tambahan.
 
 ## Struktur folder
 
