@@ -1,4 +1,4 @@
-# Setup Supabase untuk Admin Pelita Anak
+# Setup Supabase untuk Admin Proof
 
 Ikuti langkah ini setelah file di-upload ke GitHub/Vercel.
 

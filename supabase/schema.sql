@@ -1,4 +1,4 @@
--- Pelita Anak CMS schema for Supabase
+-- Proof CMS schema for Supabase
 -- Run this in Supabase SQL Editor.
 
 create table if not exists public.site_content (

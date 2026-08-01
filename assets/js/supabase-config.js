@@ -1,5 +1,5 @@
 // =====================================================================
-// SUPABASE CONFIG — Pelita Anak CMS
+// SUPABASE CONFIG — Proof CMS
 // =====================================================================
 window.PELITA_SUPABASE = {
   url: "https://hmnatgzlqgscstvelhlk.supabase.co",

@@ -1,11 +1,11 @@
-# Pelita Anak Landing Page (Vercel Ready)
+# Proof Landing Page (Vercel Ready)
 
-Website statis untuk **Pelita Anak — Cegah Grooming, Lindungi Anak**. Paket ini sudah siap di-deploy ke Vercel tanpa build step tambahan.
+Website statis untuk **Proof — Protect Our Future**. Paket ini sudah siap di-deploy ke Vercel tanpa build step tambahan.
 
 ## Struktur folder
 
 ```txt
-pelita-anak-vercel/
+proof-vercel/
 ├─ index.html
 ├─ assets/
 │  ├─ css/
@@ -22,7 +22,7 @@ pelita-anak-vercel/
 Cara paling mudah:
 
 ```bash
-cd pelita-anak-vercel
+cd proof-vercel
 python3 -m http.server 3000
 ```
 
@@ -31,7 +31,7 @@ Buka `http://localhost:3000`.
 ## Deploy ke Vercel lewat GitHub
 
 1. Buat repository GitHub baru.
-2. Upload semua isi folder `pelita-anak-vercel`.
+2. Upload semua isi folder `proof-vercel`.
 3. Buka Vercel → **Add New Project** → pilih repo tersebut.
 4. Framework preset: **Other**.
 5. Build command: kosongkan.
@@ -42,7 +42,7 @@ Buka `http://localhost:3000`.
 
 ```bash
 npm i -g vercel
-cd pelita-anak-vercel
+cd proof-vercel
 vercel
 ```
 
