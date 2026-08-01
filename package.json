@@ -2,7 +2,7 @@
   "name": "proof-landing",
   "version": "1.0.0",
   "private": true,
-  "description": "Landing page Proof siap deploy ke Vercel.",
+  "description": "Landing page PROOF siap deploy ke Vercel.",
   "scripts": {
     "dev": "vercel dev",
     "start": "python3 -m http.server 3000",

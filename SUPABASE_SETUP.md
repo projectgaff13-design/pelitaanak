@@ -1,4 +1,4 @@
-# Setup Supabase untuk Admin Proof
+# Setup Supabase untuk Admin PROOF
 
 Ikuti langkah ini setelah file di-upload ke GitHub/Vercel.
 
