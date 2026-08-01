@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ruang Permainan — Proof</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,500&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="./assets/css/styles.css">
+</head>
+<body>
+<a class="skip-link" href="#konten">Lewati ke konten utama</a>
+<div class="site-topbar">
+  <header>
+    <div class="wrap nav-inner">
+      <div class="logo"><a href="index.html" style="display:flex;align-items:center;gap:11px;"><img class="logo-mark" src="./assets/img/logo-header.png" alt="Logo Proof"><div class="logo-text">Proof<span>Protect Our Future</span></div></a></div>
+      <nav class="main-nav">
+        <a href="index.html">Beranda</a><a href="materi.html">Materi</a><a href="artikel.html">Artikel</a><a href="toko.html">Toko</a><a href="permainan.html" class="active">Permainan</a><a href="mother-sharing.html">Mother Sharing</a><a href="admin.html">Admin</a>
+      </nav>
+      <div class="nav-right"><div class="search-box"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>Cari artikel…</div><a class="icon-btn" id="cartIcon" href="keranjang.html" aria-label="Keranjang"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg><span class="cart-count" id="cartCount">0</span></a></div>
+    </div>
+  </header>
+  <div class="ticker-bar"><div class="ticker-tag">TERKINI</div><div class="ticker-track"><span>Ruang Permainan membantu fasilitator memakai kit yang sudah dibeli</span><span>Modul PDF dapat diarahkan ke Google Drive</span><span>Leaderboard mencatat proses bermain anak</span><span>Assessment membantu membaca potensi dan area dukungan anak</span></div></div>
+</div>
+
+<section class="page-hero game-hero">
+  <div class="wrap">
+    <div class="breadcrumb"><a href="index.html">Beranda</a><span>/</span><span>Permainan</span></div>
+    <div class="eyebrow">Ruang Permainan</div>
+    <h1>Kelola modul, sesi main, leaderboard, dan assessment anak.</h1>
+    <p>Bagian ini terpisah dari etalase toko. Fasilitator dapat membuka modul PDF, mencatat hasil permainan offline, lalu memilih jawaban assessment untuk membaca kebutuhan dukungan anak.</p>
+  </div>
+</section>
+
+<section class="page-body" id="konten">
+  <div class="wrap game-layout">
+    <aside class="game-sidebar" aria-label="Daftar permainan">
+      <div class="game-side-head"><span>Pilih permainan</span><b id="gameCount">3 kit</b></div>
+      <div id="gameList" class="game-list"></div>
+      <div class="game-note"><b>Catatan:</b> link modul masih placeholder Google Drive. Ganti URL di <code>assets/js/permainan.js</code> saat PDF final sudah siap.</div>
+    </aside>
+
+    <main class="game-main">
+      <section class="game-product-panel">
+        <div class="game-product-art" id="gameArt"></div>
+        <div>
+          <div class="product-cat" id="gameCategory">Permainan</div>
+          <h2 id="gameTitle">Papan Cerita Batas Tubuh</h2>
+          <p id="gameDesc">Pilih permainan untuk membuka modul, mencatat sesi main, dan mengisi assessment.</p>
+          <div class="game-actions">
+            <a class="btn btn-primary" id="moduleLink" href="#" target="_blank" rel="noopener">Buka Modul PDF</a>
+            <button class="btn btn-outline-navy" data-tab="play">Catat Main</button>
+            <button class="btn btn-outline-navy" data-tab="assessment">Isi Assessment</button>
+          </div>
+        </div>
+      </section>
+
+      <div class="game-tabs" role="tablist">
+        <button class="active" data-tab="module">Modul</button>
+        <button data-tab="play">Main</button>
+        <button data-tab="assessment">Assessment</button>
+      </div>
+
+      <section class="game-tab-panel active" id="tab-module">
+        <div class="module-grid">
+          <div class="module-card"><span>01</span><h3>Tujuan aktivitas</h3><p id="moduleGoal">Mengenalkan konsep batas tubuh dengan cerita visual dan diskusi sederhana.</p></div>
+          <div class="module-card"><span>02</span><h3>Peran fasilitator</h3><p>Bacakan instruksi, amati respon anak, lalu catat hal penting tanpa memberi label diagnosis.</p></div>
+          <div class="module-card"><span>03</span><h3>Output sesi</h3><p>Skor bermain, catatan observasi, dan rekomendasi dukungan awal untuk guru/orang tua.</p></div>
+        </div>
+      </section>
+
+      <section class="game-tab-panel" id="tab-play">
+        <div class="play-grid">
+          <form class="game-form" id="playForm">
+            <h3>Catat sesi bermain</h3>
+            <label>Nama peserta / anak<input required name="childName" placeholder="Contoh: Aira"></label>
+            <label>Fasilitator<input required name="facilitator" placeholder="Guru / orang tua"></label>
+            <label>Skor permainan<input required name="score" type="number" min="0" max="100" placeholder="0-100"></label>
+            <label>Catatan observasi<textarea name="notes" placeholder="Contoh: anak mampu menyebut area tubuh pribadi, namun masih perlu bantuan saat memilih kartu situasi."></textarea></label>
+            <button class="btn btn-primary" type="submit">Simpan ke Leaderboard</button>
+          </form>
+          <div class="leaderboard-card">
+            <div class="leaderboard-head"><h3>Leaderboard proses</h3><button class="clear-mini" id="clearLeaderboard" type="button">Reset</button></div>
+            <div id="leaderboardList" class="leaderboard-list"></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="game-tab-panel" id="tab-assessment">
+        <form class="assessment-card" id="assessmentForm">
+          <h3>Assessment hasil bermain</h3>
+          <p>Pilih jawaban berdasarkan observasi selama permainan. Hasil bersifat dukungan awal, bukan diagnosis.</p>
+          <div id="assessmentQuestions" class="assessment-questions"></div>
+          <button class="btn btn-primary" type="submit">Analisa Hasil</button>
+        </form>
+        <div id="assessmentResult" class="assessment-result" hidden></div>
+      </section>
+    </main>
+  </div>
+</section>
+
+<footer><div class="wrap"><div class="footer-grid"><div><div class="footer-logo"><img class="footer-logo-mark" src="./assets/img/logo-footer.png" alt="Logo Proof"><span>Proof</span></div><p>Platform edukasi dan komunitas untuk mencegah grooming pada anak — dibangun bersama akademisi, guru, dan orang tua.</p></div><div class="footer-col"><h5>Jelajahi</h5><ul><li><a href="materi.html">Materi Akademik</a></li><li><a href="artikel.html">Artikel Komunitas</a></li><li><a href="toko.html">Toko Edukasi</a></li><li><a href="permainan.html">Ruang Permainan</a></li></ul></div><div class="footer-col"><h5>Untuk Fasilitator</h5><ul><li><a href="permainan.html">Modul PDF</a></li><li><a href="permainan.html">Leaderboard</a></li><li><a href="permainan.html">Assessment</a></li></ul></div><div class="footer-col"><h5>Bantuan</h5><ul><li><a href="#">Kontak</a></li><li><a href="#">Privasi Data Anak</a></li></ul></div></div><div class="footer-bottom"><span>© 2026 Proof. Seluruh hak cipta dilindungi.</span><span>Kebijakan Privasi · Syarat &amp; Ketentuan</span></div></div></footer>
+<script src="./assets/js/main.js"></script>
+<script src="./assets/js/permainan.js"></script>
+</body>
+</html>
