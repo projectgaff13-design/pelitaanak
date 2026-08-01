@@ -14,7 +14,7 @@
     heroSlides: [
       {tag:'Materi Akademik', title:'Mengenali Pola Grooming Digital: Tinjauan Literatur untuk Orang Tua', excerpt:'Rangkuman studi psikologi perkembangan tentang bagaimana pelaku membangun kepercayaan bertahap secara daring, dan tanda yang bisa dikenali sejak dini oleh keluarga.', author:'Dr. Amelia Ratna, M.Psi', date:'12 Jul 2026', read:'9 menit baca', initial:'A', thumb:'t1', imageUrl:''},
       {tag:'Artikel Komunitas', title:'Malam Ketika Saya Akhirnya Percaya Cerita Anak Saya', excerpt:'Seorang ibu berbagi bagaimana ia belajar mengenali perubahan kecil pada anaknya, dan proses sulit sebelum akhirnya berani mencari bantuan.', author:'Rina, Ibu dua anak', date:'5 Jul 2026', read:'6 menit baca', initial:'R', thumb:'t2', imageUrl:''},
-      {tag:'Toko Edukasi', title:'Cara Memilih Alat Bantu Edukasi Batas Tubuh yang Tepat untuk Usia Anak', excerpt:'Panduan singkat memilih permainan dan media edukasi yang sesuai tahap usia, dari prasekolah hingga sekolah dasar.', author:'Tim Pelita Anak', date:'1 Jul 2026', read:'4 menit baca', initial:'P', thumb:'t3', imageUrl:''}
+      {tag:'Toko Edukasi', title:'Cara Memilih Alat Bantu Edukasi Batas Tubuh yang Tepat untuk Usia Anak', excerpt:'Panduan singkat memilih permainan dan media edukasi yang sesuai tahap usia, dari prasekolah hingga sekolah dasar.', author:'Tim Proof', date:'1 Jul 2026', read:'4 menit baca', initial:'P', thumb:'t3', imageUrl:''}
     ],
     recent: [
       {type:'Materi', title:'Kurikulum Edukasi Batasan Tubuh untuk Kelas 1–3 SD', meta:'Tim Kurikulum · 7 menit', url:'materi.html', thumb:'t1', imageUrl:''},

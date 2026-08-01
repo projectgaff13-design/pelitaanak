@@ -1,15 +1,15 @@
 {
-  "name": "pelita-anak-landing",
+  "name": "proof-landing",
   "version": "1.0.0",
   "private": true,
-  "description": "Landing page Pelita Anak siap deploy ke Vercel.",
+  "description": "Landing page Proof siap deploy ke Vercel.",
   "scripts": {
     "dev": "vercel dev",
     "start": "python3 -m http.server 3000",
     "preview": "python3 -m http.server 3000"
   },
   "keywords": [
-    "pelita-anak",
+    "proof",
     "landing-page",
     "vercel",
     "static-site"
