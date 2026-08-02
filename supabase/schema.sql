@@ -1,82 +1,52 @@
--- Proof CMS schema for Supabase
--- Run this in Supabase SQL Editor.
+-- PROOF CMS relational schema for Supabase
+create extension if not exists pgcrypto;
 
-create table if not exists public.site_content (
-  id text primary key,
-  content jsonb not null,
-  updated_at timestamp with time zone not null default now(),
-  updated_by uuid references auth.users(id)
-);
+create table if not exists public.article_categories (id uuid primary key default gen_random_uuid(), name text not null unique, slug text unique, created_at timestamptz default now());
+create table if not exists public.product_categories (id uuid primary key default gen_random_uuid(), name text not null unique, slug text unique, created_at timestamptz default now());
+create table if not exists public.game_categories (id uuid primary key default gen_random_uuid(), name text not null unique, slug text unique, created_at timestamptz default now());
+create table if not exists public.mother_sharing_categories (id uuid primary key default gen_random_uuid(), name text not null unique, slug text unique, created_at timestamptz default now());
 
-alter table public.site_content enable row level security;
+create table if not exists public.media_uploads (id uuid primary key default gen_random_uuid(), file_name text not null, file_path text not null, public_url text not null, mime_type text, size bigint, created_by uuid references auth.users(id), created_at timestamptz default now());
 
-drop policy if exists "Public can read site content" on public.site_content;
-create policy "Public can read site content"
-on public.site_content
-for select
-to anon, authenticated
-using (true);
+create table if not exists public.articles (id uuid primary key default gen_random_uuid(), title text not null, slug text unique, excerpt text, body text, author text, category_id uuid references public.article_categories(id) on delete set null, thumbnail_url text, status text not null default 'draft' check(status in ('draft','publish')), published_at timestamptz, created_at timestamptz default now(), updated_at timestamptz default now());
+create table if not exists public.products (id uuid primary key default gen_random_uuid(), name text not null, slug text unique, description text, category_id uuid references public.product_categories(id) on delete set null, image_url text, price numeric default 0, buy_link text, status text not null default 'publish' check(status in ('draft','publish')), created_at timestamptz default now(), updated_at timestamptz default now());
+create table if not exists public.games (id uuid primary key default gen_random_uuid(), title text not null, slug text unique, description text, category_id uuid references public.game_categories(id) on delete set null, thumbnail_url text, game_link text, module_link text, status text not null default 'publish' check(status in ('draft','publish')), created_at timestamptz default now(), updated_at timestamptz default now());
+create table if not exists public.mother_sharing (id uuid primary key default gen_random_uuid(), title text not null, body text, author text, category_id uuid references public.mother_sharing_categories(id) on delete set null, image_url text, status text not null default 'draft' check(status in ('draft','publish')), published_at timestamptz, created_at timestamptz default now(), updated_at timestamptz default now());
+create table if not exists public.banners (id uuid primary key default gen_random_uuid(), title text not null, subtitle text, image_url text, cta_text text, cta_link text, status text not null default 'publish' check(status in ('draft','publish')), sort_order int default 0, created_at timestamptz default now(), updated_at timestamptz default now());
 
-drop policy if exists "Authenticated admins can insert site content" on public.site_content;
-create policy "Authenticated admins can insert site content"
-on public.site_content
-for insert
-to authenticated
-with check (true);
+alter table public.article_categories enable row level security;
+alter table public.product_categories enable row level security;
+alter table public.game_categories enable row level security;
+alter table public.mother_sharing_categories enable row level security;
+alter table public.media_uploads enable row level security;
+alter table public.articles enable row level security;
+alter table public.products enable row level security;
+alter table public.games enable row level security;
+alter table public.mother_sharing enable row level security;
+alter table public.banners enable row level security;
 
-drop policy if exists "Authenticated admins can update site content" on public.site_content;
-create policy "Authenticated admins can update site content"
-on public.site_content
-for update
-to authenticated
-using (true)
-with check (true);
+-- Public read; authenticated admin write. For stricter admin-only access, restrict by email/role later.
+do $$ begin
+  perform 1;
+end $$;
 
--- Optional seed row. Admin page can also create/update this row automatically.
-insert into public.site_content (id, content)
-values ('main', '{}'::jsonb)
-on conflict (id) do nothing;
-
-
--- Supabase Storage bucket for admin image uploads
-insert into storage.buckets (id, name, public, file_size_limit, allowed_mime_types)
-values (
-  'pelita-images',
-  'pelita-images',
-  true,
-  5242880,
-  array['image/png', 'image/jpeg', 'image/webp', 'image/gif']
-)
-on conflict (id) do update
-set public = true,
-    file_size_limit = 5242880,
-    allowed_mime_types = array['image/png', 'image/jpeg', 'image/webp', 'image/gif'];
-
-drop policy if exists "Public can read Pelita images" on storage.objects;
-create policy "Public can read Pelita images"
-on storage.objects
-for select
-to anon, authenticated
-using (bucket_id = 'pelita-images');
-
-drop policy if exists "Authenticated admins can upload Pelita images" on storage.objects;
-create policy "Authenticated admins can upload Pelita images"
-on storage.objects
-for insert
-to authenticated
-with check (bucket_id = 'pelita-images');
-
-drop policy if exists "Authenticated admins can update Pelita images" on storage.objects;
-create policy "Authenticated admins can update Pelita images"
-on storage.objects
-for update
-to authenticated
-using (bucket_id = 'pelita-images')
-with check (bucket_id = 'pelita-images');
-
-drop policy if exists "Authenticated admins can delete Pelita images" on storage.objects;
-create policy "Authenticated admins can delete Pelita images"
-on storage.objects
-for delete
-to authenticated
-using (bucket_id = 'pelita-images');
+create policy if not exists "public read article categories" on public.article_categories for select using (true);
+create policy if not exists "auth write article categories" on public.article_categories for all using (auth.role()='authenticated') with check (auth.role()='authenticated');
+create policy if not exists "public read product categories" on public.product_categories for select using (true);
+create policy if not exists "auth write product categories" on public.product_categories for all using (auth.role()='authenticated') with check (auth.role()='authenticated');
+create policy if not exists "public read game categories" on public.game_categories for select using (true);
+create policy if not exists "auth write game categories" on public.game_categories for all using (auth.role()='authenticated') with check (auth.role()='authenticated');
+create policy if not exists "public read mother categories" on public.mother_sharing_categories for select using (true);
+create policy if not exists "auth write mother categories" on public.mother_sharing_categories for all using (auth.role()='authenticated') with check (auth.role()='authenticated');
+create policy if not exists "public read media" on public.media_uploads for select using (true);
+create policy if not exists "auth write media" on public.media_uploads for all using (auth.role()='authenticated') with check (auth.role()='authenticated');
+create policy if not exists "public read published articles" on public.articles for select using (status='publish' or auth.role()='authenticated');
+create policy if not exists "auth write articles" on public.articles for all using (auth.role()='authenticated') with check (auth.role()='authenticated');
+create policy if not exists "public read published products" on public.products for select using (status='publish' or auth.role()='authenticated');
+create policy if not exists "auth write products" on public.products for all using (auth.role()='authenticated') with check (auth.role()='authenticated');
+create policy if not exists "public read published games" on public.games for select using (status='publish' or auth.role()='authenticated');
+create policy if not exists "auth write games" on public.games for all using (auth.role()='authenticated') with check (auth.role()='authenticated');
+create policy if not exists "public read published mother" on public.mother_sharing for select using (status='publish' or auth.role()='authenticated');
+create policy if not exists "auth write mother" on public.mother_sharing for all using (auth.role()='authenticated') with check (auth.role()='authenticated');
+create policy if not exists "public read published banners" on public.banners for select using (status='publish' or auth.role()='authenticated');
+create policy if not exists "auth write banners" on public.banners for all using (auth.role()='authenticated') with check (auth.role()='authenticated');
