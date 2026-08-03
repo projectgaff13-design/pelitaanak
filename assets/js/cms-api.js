@@ -48,6 +48,9 @@
   function slugify(s){ return String(s||'').toLowerCase().trim().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'') || String(Date.now()); }
   function normalizeRow(key,row){
     const copy = {...row};
+    // Hapus field hasil join/field lama yang bukan kolom asli tabel.
+    // Jika ikut dikirim ke Supabase, PostgREST akan error: Could not find column in schema cache.
+    ['category','media','category_name','category_slug'].forEach(k=>delete copy[k]);
     Object.keys(copy).forEach(k=>{ if(copy[k]==='') copy[k]=null; });
     if(!copy.slug && (copy.title || copy.name)) copy.slug = slugify(copy.title || copy.name);
     if(['articles','mother','banners'].includes(key) && copy.status === 'publish' && !copy.published_at) copy.published_at = new Date().toISOString();

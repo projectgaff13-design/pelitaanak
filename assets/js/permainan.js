@@ -1,69 +1,15 @@
-const GAMES_KEY = 'proofGameSessionsV1';
-const ASSESSMENT_KEY = 'proofAssessmentV1';
-
-const games = [
-  { id:'papan-cerita', title:'Papan Cerita Batas Tubuh', category:'Papan Cerita', tone:'t1', drive:'https://drive.google.com/', goal:'Membantu anak mengenali batas tubuh, situasi aman/tidak aman, dan cara meminta bantuan.' },
-  { id:'kartu-aman', title:'Kartu Aman / Tidak Aman', category:'Kartu Edukasi', tone:'t2', drive:'https://drive.google.com/', goal:'Melatih anak mengelompokkan situasi, memberi alasan sederhana, dan menyebut orang tepercaya.' },
-  { id:'puzzle-lingkaran', title:'Puzzle Lingkaran Kepercayaan', category:'Puzzle', tone:'t3', drive:'https://drive.google.com/', goal:'Membantu anak memetakan orang terdekat, batas rahasia, dan jalur meminta pertolongan.' }
-];
-
-const questions = [
-  { id:'recognize', text:'Anak mampu membedakan situasi aman dan tidak aman.', area:'Pemahaman batas aman' },
-  { id:'express', text:'Anak mampu menyampaikan rasa tidak nyaman atau menolak.', area:'Komunikasi dan keberanian' },
-  { id:'trusted', text:'Anak mampu menyebut orang dewasa tepercaya untuk meminta bantuan.', area:'Jaringan dukungan' },
-  { id:'focus', text:'Anak mampu mengikuti alur permainan sampai selesai.', area:'Atensi dan regulasi' }
-];
-
-let selectedGame = games[0];
-function loadSessions(){ try{return JSON.parse(localStorage.getItem(GAMES_KEY)) || []}catch(e){return []} }
-function saveSessions(rows){ localStorage.setItem(GAMES_KEY, JSON.stringify(rows)); }
-function rupiah(n){ return new Intl.NumberFormat('id-ID').format(n); }
-
-function renderGameList(){
-  const list = document.getElementById('gameList'); if(!list) return;
-  document.getElementById('gameCount').textContent = games.length + ' kit';
-  list.innerHTML = games.map(g=>`<button class="game-list-item ${g.id===selectedGame.id?'active':''}" data-game="${g.id}"><span class="game-dot ${g.tone}"></span><span><b>${g.title}</b><small>${g.category}</small></span></button>`).join('');
-  list.querySelectorAll('[data-game]').forEach(btn=>btn.addEventListener('click',()=>{ selectedGame = games.find(g=>g.id===btn.dataset.game) || games[0]; renderAll(); }));
-}
-function renderProduct(){
-  document.getElementById('gameTitle').textContent = selectedGame.title;
-  document.getElementById('gameCategory').textContent = selectedGame.category;
-  document.getElementById('moduleGoal').textContent = selectedGame.goal;
-  document.getElementById('moduleLink').href = selectedGame.drive;
-  document.getElementById('gameArt').className = 'game-product-art ' + selectedGame.tone;
-}
-function renderLeaderboard(){
-  const box = document.getElementById('leaderboardList'); if(!box) return;
-  const rows = loadSessions().filter(r=>r.gameId===selectedGame.id).sort((a,b)=>b.score-a.score || b.date.localeCompare(a.date));
-  if(!rows.length){ box.innerHTML = '<div class="empty-mini">Belum ada sesi. Catat permainan pertama untuk mulai monitoring.</div>'; return; }
-  box.innerHTML = rows.map((r,i)=>`<div class="leaderboard-row"><div class="rank">${i+1}</div><div><b>${r.childName}</b><span>${r.facilitator} · ${new Date(r.date).toLocaleDateString('id-ID')}</span><small>${r.notes || 'Tanpa catatan tambahan'}</small></div><strong>${r.score}</strong></div>`).join('');
-}
-function renderQuestions(){
-  const box = document.getElementById('assessmentQuestions'); if(!box) return;
-  box.innerHTML = questions.map((q,i)=>`<fieldset class="assessment-q"><legend>${i+1}. ${q.text}</legend><label><input type="radio" name="${q.id}" value="2" required> Sudah konsisten</label><label><input type="radio" name="${q.id}" value="1"> Mulai terlihat, perlu bantuan</label><label><input type="radio" name="${q.id}" value="0"> Belum terlihat</label></fieldset>`).join('');
-}
-function renderAll(){ renderGameList(); renderProduct(); renderLeaderboard(); renderQuestions(); }
-function setTab(tab){
-  document.querySelectorAll('.game-tabs button,[data-tab]').forEach(el=>{ if(el.tagName==='BUTTON') el.classList.toggle('active', el.dataset.tab===tab && el.parentElement.classList.contains('game-tabs')); });
-  document.querySelectorAll('.game-tab-panel').forEach(p=>p.classList.toggle('active', p.id === 'tab-'+tab));
-}
-
-document.addEventListener('DOMContentLoaded',()=>{
-  renderAll();
-  document.querySelectorAll('[data-tab]').forEach(btn=>btn.addEventListener('click',()=>setTab(btn.dataset.tab)));
-  document.getElementById('playForm')?.addEventListener('submit',e=>{
-    e.preventDefault(); const fd = new FormData(e.currentTarget);
-    const row = { gameId:selectedGame.id, childName:fd.get('childName'), facilitator:fd.get('facilitator'), score:Number(fd.get('score')), notes:fd.get('notes'), date:new Date().toISOString() };
-    const rows = loadSessions(); rows.push(row); saveSessions(rows); e.currentTarget.reset(); renderLeaderboard();
-  });
-  document.getElementById('clearLeaderboard')?.addEventListener('click',()=>{ saveSessions(loadSessions().filter(r=>r.gameId!==selectedGame.id)); renderLeaderboard(); });
-  document.getElementById('assessmentForm')?.addEventListener('submit',e=>{
-    e.preventDefault(); const fd = new FormData(e.currentTarget); let score=0; const weak=[];
-    questions.forEach(q=>{ const val=Number(fd.get(q.id)); score += val; if(val<2) weak.push(q.area); });
-    const max = questions.length*2; const pct = Math.round(score/max*100);
-    let title = pct>=75?'Potensi kuat, lanjutkan pengayaan': pct>=45?'Butuh latihan terarah':'Perlu pendampingan lebih intensif';
-    const result = document.getElementById('assessmentResult'); result.hidden=false;
-    result.innerHTML = `<h3>${title}</h3><div class="assessment-score">${pct}<span>%</span></div><p>${weak.length ? 'Area yang perlu diperkuat: '+weak.join(', ')+'.' : 'Semua indikator utama sudah terlihat konsisten.'}</p><small>Hasil ini tersimpan di perangkat fasilitator sebagai catatan lokal dan bukan diagnosis.</small>`;
-    localStorage.setItem(ASSESSMENT_KEY, JSON.stringify({gameId:selectedGame.id, pct, weak, date:new Date().toISOString()}));
-  });
-});
+(function(){
+const GAMES_KEY='proof_game_sessions_v1';
+const ASSESSMENT_KEY='proof_assessment_v1';
+let GAMES=[]; let selectedGame=null;
+const QUESTIONS=[['Anak mampu menyebut bagian tubuh pribadi.','body'],['Anak bisa membedakan sentuhan aman dan tidak aman.','safe'],['Anak tahu minimal dua orang dewasa tepercaya.','trust'],['Anak berani berkata tidak atau meminta bantuan.','voice']];
+const $=id=>document.getElementById(id);
+function loadSessions(){try{return JSON.parse(localStorage.getItem(GAMES_KEY))||[]}catch(e){return[]}}
+function saveSessions(rows){localStorage.setItem(GAMES_KEY,JSON.stringify(rows))}
+function renderGames(){const list=$('gameList'), count=$('gameCount'); if(count) count.textContent=`${GAMES.length} kit`; if(!list) return; if(!GAMES.length){list.innerHTML='<div class="empty-state"><h3>Belum ada permainan.</h3><p>Permainan akan tampil setelah dipublish dari Admin.</p></div>';return;} list.innerHTML=GAMES.map(g=>`<button class="game-item ${selectedGame&&g.id===selectedGame.id?'active':''}" data-id="${g.id}"><span>${g.category_name||'Permainan'}</span><b>${g.title}</b></button>`).join(''); list.querySelectorAll('.game-item').forEach(btn=>btn.addEventListener('click',()=>{selectedGame=GAMES.find(g=>String(g.id)===btn.dataset.id);renderSelected();renderGames();renderLeaderboard();}));}
+function renderSelected(){if(!selectedGame){if($('gameTitle')) $('gameTitle').textContent='Belum ada permainan'; if($('gameDesc')) $('gameDesc').textContent='Permainan akan tampil setelah ditambahkan dan dipublish dari halaman Admin.'; return;} $('gameTitle').textContent=selectedGame.title||''; $('gameCategory').textContent=selectedGame.category_name||'Permainan'; $('gameDesc').textContent=selectedGame.description||''; $('moduleGoal').textContent=selectedGame.description||'Tujuan aktivitas akan diisi dari Admin.'; $('moduleLink').href=selectedGame.module_link||selectedGame.game_link||'#'; if(selectedGame.thumbnail_url) $('gameArt').style.backgroundImage=`url('${selectedGame.thumbnail_url}')`;}
+function renderLeaderboard(){const el=$('leaderboardList'); if(!el) return; const rows=loadSessions().filter(x=>!selectedGame||x.gameId===selectedGame.id); el.innerHTML=rows.length?rows.sort((a,b)=>b.score-a.score).map((r,i)=>`<div class="leader-row"><b>#${i+1} ${r.childName}</b><span>${r.score}/100</span><small>${r.facilitator} · ${new Date(r.date).toLocaleDateString('id-ID')}</small></div>`).join(''):'<p class="muted">Belum ada sesi tersimpan.</p>';}
+function renderQuestions(){const el=$('assessmentQuestions'); if(el) el.innerHTML=QUESTIONS.map((q,i)=>`<label class="q-row"><span>${i+1}. ${q[0]}</span><select name="${q[1]}"><option value="1">Belum terlihat</option><option value="2">Mulai berkembang</option><option value="3">Cukup baik</option><option value="4">Kuat</option></select></label>`).join('');}
+async function loadGames(){try{if(window.CMSApi?.configured()) GAMES=await CMSApi.list('games',{published:true,limit:100});}catch(e){console.error('[Permainan] gagal mengambil data games',e);GAMES=[];} selectedGame=GAMES[0]||null; renderGames(); renderSelected(); renderLeaderboard(); renderQuestions();}
+document.addEventListener('DOMContentLoaded',()=>{loadGames();document.querySelectorAll('[data-tab]').forEach(btn=>btn.addEventListener('click',()=>{const tab=btn.dataset.tab;document.querySelectorAll('.game-tabs button').forEach(b=>b.classList.toggle('active',b.dataset.tab===tab));document.querySelectorAll('.game-tab-panel').forEach(p=>p.classList.toggle('active',p.id==='tab-'+tab));}));$('playForm')?.addEventListener('submit',e=>{e.preventDefault();if(!selectedGame){alert('Belum ada permainan.');return;}const fd=new FormData(e.target), rows=loadSessions();rows.push({gameId:selectedGame.id,childName:fd.get('childName'),facilitator:fd.get('facilitator'),score:Number(fd.get('score')),notes:fd.get('notes'),date:new Date().toISOString()});saveSessions(rows);e.target.reset();renderLeaderboard();});$('clearLeaderboard')?.addEventListener('click',()=>{if(confirm('Reset leaderboard lokal?')){saveSessions(loadSessions().filter(x=>selectedGame&&x.gameId!==selectedGame.id));renderLeaderboard();}});$('assessmentForm')?.addEventListener('submit',e=>{e.preventDefault();const fd=new FormData(e.target);const total=QUESTIONS.reduce((sum,q)=>sum+Number(fd.get(q[1])||0),0);const pct=Math.round(total/(QUESTIONS.length*4)*100);const weak=QUESTIONS.filter(q=>Number(fd.get(q[1])||0)<=2).map(q=>q[0]);$('assessmentResult').hidden=false;$('assessmentResult').innerHTML=`<h3>Hasil dukungan awal: ${pct}%</h3><p>${pct>=75?'Kekuatan anak sudah terlihat baik.':'Masih perlu pendampingan bertahap dan pengulangan aktivitas.'}</p>${weak.length?`<b>Area dukungan:</b><ul>${weak.map(w=>`<li>${w}</li>`).join('')}</ul>`:''}`;localStorage.setItem(ASSESSMENT_KEY,JSON.stringify({gameId:selectedGame?.id,pct,weak,date:new Date().toISOString()}));});});
+})();
