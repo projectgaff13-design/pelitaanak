@@ -16,6 +16,17 @@
     mother:'*, category:mother_categories(id,name,slug), media:media_uploads(id,public_url,file_path)',
     banners:'*, media:media_uploads(id,public_url,file_path)'
   };
+  const writable = {
+    articles:['id','title','slug','excerpt','body','author','category_id','media_id','thumbnail_url','status','published_at','created_at','updated_at'],
+    products:['id','name','slug','description','category_id','media_id','image_url','price','buy_link','status','created_at','updated_at'],
+    games:['id','title','slug','description','category_id','media_id','thumbnail_url','game_link','module_link','status','created_at','updated_at'],
+    mother:['id','title','slug','body','author','category_id','media_id','image_url','status','published_at','created_at','updated_at'],
+    banners:['id','title','slug','subtitle','media_id','image_url','cta_text','cta_link','status','sort_order','created_at','updated_at'],
+    articleCategories:['id','name','slug','created_at','updated_at'],
+    productCategories:['id','name','slug','created_at','updated_at'],
+    gameCategories:['id','name','slug','created_at','updated_at'],
+    motherCategories:['id','name','slug','created_at','updated_at']
+  };
   function configured(){ return !!(cfg.url && cfg.anonKey && window.supabase); }
   function getClient(){
     if(client) return client;
@@ -47,10 +58,9 @@
   }
   function slugify(s){ return String(s||'').toLowerCase().trim().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'') || String(Date.now()); }
   function normalizeRow(key,row){
-    const copy = {...row};
-    // Hapus field hasil join/field lama yang bukan kolom asli tabel.
-    // Jika ikut dikirim ke Supabase, PostgREST akan error: Could not find column in schema cache.
-    ['category','media','category_name','category_slug'].forEach(k=>delete copy[k]);
+    const allowed = writable[key];
+    const copy = {};
+    Object.entries(row || {}).forEach(([k,v]) => { if(!allowed || allowed.includes(k)) copy[k]=v; });
     Object.keys(copy).forEach(k=>{ if(copy[k]==='') copy[k]=null; });
     if(!copy.slug && (copy.title || copy.name)) copy.slug = slugify(copy.title || copy.name);
     if(['articles','mother','banners'].includes(key) && copy.status === 'publish' && !copy.published_at) copy.published_at = new Date().toISOString();
@@ -61,7 +71,7 @@
   }
   function flatten(row){
     if(row && row.category){ row.category_name = row.category.name; row.category_slug = row.category.slug; }
-    if(row && row.media && !row.image_url && !row.thumbnail_url){ row.image_url = row.media.public_url; }
+    if(row && row.media){ if(!row.image_url) row.image_url = row.media.public_url; if(!row.thumbnail_url) row.thumbnail_url = row.media.public_url; }
     return row;
   }
   async function list(key,{published=false,limit=200}={}){
@@ -69,12 +79,12 @@
     return (await run({table:t, query:'select list '+key}, c=>{
       let q = c.from(t).select(select).limit(limit);
       if(published && ['articles','products','games','mother','banners'].includes(key)) q = q.eq('status','publish');
-      q = q.order(key==='banners'?'sort_order':'created_at', { ascending:key==='banners' });
+      q = q.order(key==='banners'?'sort_order':'created_at', { ascending:false });
       return q;
     })).data?.map(flatten) || [];
   }
   async function get(key,id){ const t=table(key); return (await run({table:t, query:'select by id '+id}, c=>c.from(t).select(selectMap[key]||'*').eq('id',id).single())).data; }
-  async function save(key,row){ const t=table(key); return (await run({table:t, query:row.id?'update/upsert':'create/upsert', payload:row}, c=>c.from(t).upsert(normalizeRow(key,row)).select(selectMap[key]||'*').single())).data; }
+  async function save(key,row){ const t=table(key); const payload=normalizeRow(key,row); return (await run({table:t, query:row && row.id?'update/upsert':'create/upsert', payload}, c=>c.from(t).upsert(payload).select(selectMap[key]||'*').single())).data; }
   async function remove(key,id){ const t=table(key); await run({table:t, query:'delete id '+id}, c=>c.from(t).delete().eq('id',id)); }
   async function upload(file, oldPath){
     if(!file) throw new Error('File gambar belum dipilih.');
