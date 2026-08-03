@@ -19,7 +19,7 @@
   const writable = {
     articles:['id','title','slug','excerpt','body','author','category_id','media_id','thumbnail_url','status','published_at','created_at','updated_at'],
     products:['id','name','slug','description','category_id','media_id','image_url','price','buy_link','status','created_at','updated_at'],
-    games:['id','title','slug','description','category_id','media_id','thumbnail_url','game_link','module_link','status','created_at','updated_at'],
+    games:['id','title','slug','description','category_id','media_id','thumbnail_url','banner_url','age','duration','tools','objective','pdf_url','play_instruction','observation_questions','note_form_json','assessment_json','game_link','module_link','status','created_at','updated_at'],
     mother:['id','title','slug','body','author','category_id','media_id','image_url','status','published_at','created_at','updated_at'],
     banners:['id','title','slug','subtitle','media_id','image_url','cta_text','cta_link','status','sort_order','created_at','updated_at'],
     articleCategories:['id','name','slug','created_at','updated_at'],
@@ -62,6 +62,8 @@
     const copy = {};
     Object.entries(row || {}).forEach(([k,v]) => { if(!allowed || allowed.includes(k)) copy[k]=v; });
     Object.keys(copy).forEach(k=>{ if(copy[k]==='') copy[k]=null; });
+
+    ['note_form_json','assessment_json'].forEach(k=>{ if(copy[k] && typeof copy[k] === 'string'){ try{ copy[k] = JSON.parse(copy[k]); } catch(e){ throw new Error(k+' harus berupa JSON valid.'); } } });
     if(!copy.slug && (copy.title || copy.name)) copy.slug = slugify(copy.title || copy.name);
     if(['articles','mother','banners'].includes(key) && copy.status === 'publish' && !copy.published_at) copy.published_at = new Date().toISOString();
     if(copy.price !== undefined && copy.price !== null) copy.price = Number(copy.price) || 0;
@@ -88,8 +90,8 @@
   async function remove(key,id){ const t=table(key); await run({table:t, query:'delete id '+id}, c=>c.from(t).delete().eq('id',id)); }
   async function upload(file, oldPath){
     if(!file) throw new Error('File gambar belum dipilih.');
-    if(!file.type || !file.type.startsWith('image/')) throw new Error('File harus berupa gambar.');
-    if(file.size > 5*1024*1024) throw new Error('Ukuran gambar maksimal 5 MB.');
+    if(!file.type || !(file.type.startsWith('image/') || file.type === 'application/pdf')) throw new Error('File harus berupa gambar atau PDF.');
+    if(file.size > 10*1024*1024) throw new Error('Ukuran file maksimal 10 MB.');
     const bucket = cfg.bucket || 'pelita-images';
     const safe = file.name.toLowerCase().replace(/[^a-z0-9.]+/g,'-').replace(/-+/g,'-');
     const path = `admin/${Date.now()}-${Math.random().toString(36).slice(2,8)}-${safe}`;

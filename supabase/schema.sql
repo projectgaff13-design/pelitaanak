@@ -98,3 +98,63 @@ drop policy if exists "public read pelita images" on storage.objects; create pol
 drop policy if exists "auth upload pelita images" on storage.objects; create policy "auth upload pelita images" on storage.objects for insert with check (bucket_id = 'pelita-images' and auth.role() = 'authenticated');
 drop policy if exists "auth update pelita images" on storage.objects; create policy "auth update pelita images" on storage.objects for update using (bucket_id = 'pelita-images' and auth.role() = 'authenticated') with check (bucket_id = 'pelita-images' and auth.role() = 'authenticated');
 drop policy if exists "auth delete pelita images" on storage.objects; create policy "auth delete pelita images" on storage.objects for delete using (bucket_id = 'pelita-images' and auth.role() = 'authenticated');
+
+-- Game CMS expansion: dynamic public game page, notes, PDF, assessment
+alter table public.games add column if not exists banner_url text;
+alter table public.games add column if not exists age text;
+alter table public.games add column if not exists duration text;
+alter table public.games add column if not exists tools text;
+alter table public.games add column if not exists objective text;
+alter table public.games add column if not exists pdf_url text;
+alter table public.games add column if not exists play_instruction text;
+alter table public.games add column if not exists observation_questions text;
+alter table public.games add column if not exists note_form_json jsonb;
+alter table public.games add column if not exists assessment_json jsonb;
+
+create table if not exists public.game_notes (
+  id uuid primary key default gen_random_uuid(),
+  game_id uuid not null references public.games(id) on delete cascade,
+  title text,
+  fields jsonb not null default '[]'::jsonb,
+  template text,
+  created_at timestamptz not null default now(),
+  updated_at timestamptz not null default now()
+);
+create table if not exists public.game_assessments (
+  id uuid primary key default gen_random_uuid(),
+  game_id uuid not null references public.games(id) on delete cascade,
+  title text,
+  description text,
+  created_at timestamptz not null default now(),
+  updated_at timestamptz not null default now()
+);
+create table if not exists public.assessment_questions (
+  id uuid primary key default gen_random_uuid(),
+  assessment_id uuid not null references public.game_assessments(id) on delete cascade,
+  question text not null,
+  answer_type text not null default 'scale' check(answer_type in ('choice','scale','text','checklist')),
+  options jsonb not null default '[]'::jsonb,
+  sort_order int not null default 0,
+  created_at timestamptz not null default now(),
+  updated_at timestamptz not null default now()
+);
+
+alter table public.games add column if not exists note_form_id uuid references public.game_notes(id) on delete set null;
+alter table public.games add column if not exists assessment_id uuid references public.game_assessments(id) on delete set null;
+
+alter table public.game_notes enable row level security;
+alter table public.game_assessments enable row level security;
+alter table public.assessment_questions enable row level security;
+
+drop policy if exists "public read game notes" on public.game_notes;
+create policy "public read game notes" on public.game_notes for select using (true);
+drop policy if exists "auth write game notes" on public.game_notes;
+create policy "auth write game notes" on public.game_notes for all using (auth.role()='authenticated') with check (auth.role()='authenticated');
+drop policy if exists "public read game assessments" on public.game_assessments;
+create policy "public read game assessments" on public.game_assessments for select using (true);
+drop policy if exists "auth write game assessments" on public.game_assessments;
+create policy "auth write game assessments" on public.game_assessments for all using (auth.role()='authenticated') with check (auth.role()='authenticated');
+drop policy if exists "public read assessment questions" on public.assessment_questions;
+create policy "public read assessment questions" on public.assessment_questions for select using (true);
+drop policy if exists "auth write assessment questions" on public.assessment_questions;
+create policy "auth write assessment questions" on public.assessment_questions for all using (auth.role()='authenticated') with check (auth.role()='authenticated');
