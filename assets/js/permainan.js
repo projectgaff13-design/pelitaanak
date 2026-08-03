@@ -3,10 +3,13 @@
   let games=[], selected=null;
   const $=id=>document.getElementById(id);
   const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-  function parseJSON(v,fallback){ if(!v) return fallback; if(typeof v!=='string') return v; try{return JSON.parse(v)}catch{return fallback} }
+  const log=(msg,data)=>console.log('[Permainan CMS]',msg,data??'');
+  const warn=(msg,data)=>console.warn('[Permainan CMS]',msg,data??'');
+  const err=(msg,data)=>console.error('[Permainan CMS]',msg,data??'');
+  function parseJSON(v,fallback){ if(!v) return fallback; if(typeof v!=='string') return v; try{return JSON.parse(v)}catch(e){warn('JSON tidak valid; fallback dipakai',{value:v,error:e}); return fallback} }
   function lines(v){ if(Array.isArray(v)) return v; return String(v||'').split('\n').map(x=>x.trim()).filter(Boolean); }
   function setTab(tab){ document.querySelectorAll('.game-tabs button').forEach(b=>b.classList.toggle('active',b.dataset.tab===tab)); document.querySelectorAll('.game-tab-panel').forEach(p=>p.classList.toggle('active',p.id==='tab-'+tab)); }
-  function selectGame(id){ selected=games.find(g=>String(g.id)===String(id))||games[0]||null; renderAll(); }
+  function selectGame(id){ selected=games.find(g=>String(g.id)===String(id))||games[0]||null; log('Permainan dipilih', selected); renderAll(); }
   function renderList(){ const list=$('gameList'), count=$('gameCount'); if(count) count.textContent=`${games.length} kit`; if(!list) return; if(!games.length){ list.innerHTML='<div class="empty-state"><h3>Belum ada permainan.</h3><p>Permainan akan tampil setelah dipublish dari Admin.</p></div>'; return; } list.innerHTML=games.map(g=>`<button class="game-item ${selected&&g.id===selected.id?'active':''}" data-id="${esc(g.id)}">${g.thumbnail_url?`<span class="game-thumb-mini" style="background-image:url('${esc(g.thumbnail_url)}')"></span>`:'<span class="game-dot t1"></span>'}<span><b>${esc(g.title)}</b><small>${esc(g.category_name||'Permainan')}${g.age?' · '+esc(g.age):''}</small></span></button>`).join(''); list.querySelectorAll('[data-id]').forEach(b=>b.onclick=()=>selectGame(b.dataset.id)); }
   function renderDetail(){ if(!selected){ if($('gameTitle')) $('gameTitle').textContent='Belum ada permainan'; if($('gameDesc')) $('gameDesc').textContent='Permainan akan tampil setelah ditambahkan dan dipublish dari halaman Admin.'; if($('moduleLink')) {$('moduleLink').href='#'; $('moduleLink').classList.add('disabled');} return; }
     $('gameTitle').textContent=selected.title||''; $('gameCategory').textContent=selected.category_name||'Permainan'; $('gameDesc').textContent=selected.description||'';
@@ -19,6 +22,26 @@
   function renderLeaderboard(){ const el=$('leaderboardList'); if(!el) return; const rows=loadSessions().filter(x=>selected&&x.gameId===selected.id); el.innerHTML=rows.length?rows.sort((a,b)=>b.score-a.score).map((r,i)=>`<div class="leader-row"><b>#${i+1} ${esc(r.childName)}</b><span>${r.score}/100</span><small>${esc(r.facilitator)} · ${new Date(r.date).toLocaleDateString('id-ID')}</small></div>`).join(''):'<p class="muted">Belum ada sesi tersimpan.</p>'; }
   function renderAssessment(){ const box=$('assessmentQuestions'); if(!box) return; const qs=parseJSON(selected?.assessment_json, []); if(!selected){ box.innerHTML='<p>Belum ada permainan.</p>'; return; } if(!Array.isArray(qs)||!qs.length){ box.innerHTML='<p>Assessment belum tersedia untuk permainan ini.</p>'; return; } box.innerHTML=qs.map((q,i)=>{ const type=q.type||'scale'; const name='q_'+i; if(type==='text') return `<label class="q-row"><span>${i+1}. ${esc(q.question)}</span><textarea name="${name}"></textarea></label>`; if(type==='checklist') return `<label class="q-row"><span>${i+1}. ${esc(q.question)}</span>${(q.options||[]).map(o=>`<label><input type="checkbox" name="${name}" value="${esc(o)}"> ${esc(o)}</label>`).join('')}</label>`; if(type==='choice') return `<label class="q-row"><span>${i+1}. ${esc(q.question)}</span><select name="${name}">${(q.options||['Ya','Tidak']).map(o=>`<option value="${esc(o)}">${esc(o)}</option>`).join('')}</select></label>`; return `<label class="q-row"><span>${i+1}. ${esc(q.question)}</span><select name="${name}"><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option></select></label>` }).join(''); }
   function renderAll(){ renderList(); renderDetail(); renderModule(); renderPlay(); renderLeaderboard(); renderAssessment(); }
-  async function fetchGames(){ try{ const data=await CMSApi.list('games',{published:true,limit:1000}); games=(data||[]).slice().reverse(); selected=games[0]||null; renderAll(); }catch(e){ console.error('[Permainan] gagal mengambil data games',e); games=[]; selected=null; renderAll(); } }
+  function normalize(row){ if(row.category){row.category_name=row.category.name; row.category_slug=row.category.slug;} return row; }
+  async function fetchGames(){
+    if(!window.CMSApi?.getClient()){ warn('CMSApi/Supabase belum siap. Pastikan supabase-config.js dan CDN Supabase termuat.'); games=[]; selected=null; renderAll(); return; }
+    const sb=CMSApi.getClient();
+    const started=Date.now();
+    try{
+      log('Mulai query games publish dari Supabase', {table:'games', filter:{status:'publish'}, ts:new Date().toISOString()});
+      let {data,error}=await sb.from('games').select('*, category:game_categories(id,name,slug)').eq('status','publish').order('created_at',{ascending:true});
+      if(error){
+        warn('Query dengan relasi kategori gagal; retry select(*) tanpa relasi. Kemungkinan relasi/schema cache bermasalah.', error);
+        const retry=await sb.from('games').select('*').eq('status','publish').order('created_at',{ascending:true});
+        data=retry.data; error=retry.error;
+      }
+      if(error){ err('Query games gagal. Kemungkinan tabel tidak ada, RLS menolak akses, schema cache belum reload, atau koneksi gagal.', error); games=[]; selected=null; renderAll(); return; }
+      log('Hasil query games', data);
+      log('Jumlah game publish diterima', {count:(data||[]).length, ms:Date.now()-started});
+      (data||[]).forEach(g=>log('Status game diterima', {id:g.id,title:g.title,status:g.status,category_id:g.category_id}));
+      if(!(data||[]).length){ warn('Database mengembalikan array kosong untuk games status=publish. Cek: status harus persis "publish", RLS public select, dan data tersimpan di tabel games yang sama.'); }
+      games=(data||[]).map(normalize); selected=games[0]||null; renderAll();
+    }catch(e){ err('Exception saat mengambil games. Query gagal sebelum response Supabase selesai.', e); games=[]; selected=null; renderAll(); }
+  }
   document.addEventListener('DOMContentLoaded',()=>{ document.querySelectorAll('[data-tab]').forEach(btn=>btn.onclick=()=>setTab(btn.dataset.tab)); $('clearLeaderboard')?.addEventListener('click',()=>{ if(confirm('Reset leaderboard lokal?')){ localStorage.setItem(GAMES_KEY, JSON.stringify(loadSessions().filter(x=>selected&&x.gameId!==selected.id))); renderLeaderboard(); }}); fetchGames(); });
 })();
